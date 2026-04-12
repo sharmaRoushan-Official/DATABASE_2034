@@ -1,0 +1,374 @@
+Q. What is Database?
+-------------------------------------------------------------------------
+A Database is a place where we store data in an organize way so that we Can:
+
+* Insert Data
+* Update Data
+* Search and retrieve data easily
+* Delete Data
+------------------------------------------------------------------------------------
+OR
+
+A database is a collections of data stored in a format that can easily be accessed.
+-------------------------
+
+Q. Why Database is Needed?
+-------------
+Without Database:
+* Data is stored in files(Excel/Text).
+* Searching becomes slow.
+* Data be can be lost easily.
+* Duplicate record happen.
+------------
+Database helps to:
+
+* Store data safely.
+* Retrieve data quickly.
+* Avoid redundancy(duplicate data not allowed)
+* Maintain consistency.
+-------------------------------------------------------------------------------------------
+✅ Types of Database
+--------------------------------------------------------------------
+A). Relational Database(RDBMS-Relational Database Management System)
+Data is stored in tables(rows and columns)
+Example:
+* MySQL
+* PostgreSQL
+* Oracle
+* SQL Server
+------------
+B). Non-Relational Database(NoSQL)
+Data is stored in the formats like JSON, documents, key-value paris.
+Example:
+* MongoDB
+* Firebase
+* Cassandra
+* Redis
+---------------------------------------------------------------------------------------
+Q. What is DBMS?
+-----------------------------------------------
+DBMS(Database management System) is a software used to manage Databases.
+
+Example:
+* MySQL is DBMS
+* Oracle is DBMS
+
+DBMS helps to:
+* Store data
+* Modify data
+* Retrieve data
+* Manage user access
+-----------------------------------------------------------------------------------------
+Q. What is RDBMS?
+RDBMS(Relational DBMS) stores data in the form of tables with relationships.
+
+Example:
+
+Student Table
+Course Table 
+
+Both connected using common columns like student_id.
+-----------------------------------------------------------------------------------------------
+✅ Basic Database Terminologies.
+----------------------------------------
+Term		|	Meaning
+------------------------------------------------
+Table		| Collections of data(like Excel sheet)
+------------------------------------------------
+Row/Record	| One complete entry.
+--------------------------------------------------------
+Column/Field	| One property(Name, Age, Salary)
+-----------------------------------------------------------
+Primary Key	| Unique identifier for each row.
+------------------------------------------------------------
+Foreign Key	| Links one table to another.
+-------------------------------------------------------------
+Schema		| Structure/design of database.
+-----------------------------------------------------------
+Query		| Command to fetch or modify data
+--------------------------------------------------------------------------
+✅ Keys in Database
+
+Primary key:
+-------
+* Unique
+* Cannot NULL
+Example: student_id
+------------------------
+Foreign Key
+* Used to connect two tables.
+Example: student_id in another table.
+----------------------------------------------------------------------------------------
+SQL (Stuructured Query lanaguage)
+SQL is used to communicate with database.
+SQL is used for:
+* Create table
+* Insert Data
+* Update Data
+* Delete Data
+* Retrieve Data
+---------------------------------------------
+✅ Basic SQL Commands
+1. DDL (Data Definition Language)
+Used to define structure.
+* Create
+* Alter
+* Drop
+* Truncate
+2). DML(Data Manipulation Language)
+* Insert
+* Update
+* Delete
+3). DQL(Data Query Language)
+* Select
+4). DCL(Data Control Language)
+* Grant
+* Revoke
+5). TCL(Transaction Control Language)
+* Commit
+* Rollback
+* Savepoint
+--------------------------------------------------------------------------------
+Q. What is Normalization?
+Normalization is the process of organizing data to reduce duplication.
+
+Forms:
+* 1NF - (First Normal Form)
+* 2NF - (Second Normal Form)
+* 3NF - (Third Normal Form)
+* BCNF - (Boyce Code Normal Form)
+* 4NF - (Fourth Normal Form)
+* 5NF - (Fifth Normal Form)
+----------------------------------------------------------------------------------
+
+✅ Database Relationship Types
+1.One to One
+one person -> one passport
+2. One to Many
+One Customer -> Many orders
+3. Many to Many
+Many students -> Many Courses
+----------------------------------------------------------
+✅ Basic Joins
+Joins are used to combine tables.
+Types:
+* Inner Join
+* Left Join
+* Right Join
+* Full Join
+---------------------------------------------------------------------------------------
+
+
+1). How to Create SQL Database?
+---------------------------------------------
+Syntax:
+	create database databaseName;
+--------------------------------------------------------------------------
+
+2) Command to show databases.
+	mysql> show databases;
+---------------------------------------------------------------------------------------------
+3). First you have to create Database (newdb);
+	You can put n number of tables inside database:
+	n-Multiple number of tables which you want.
+---------------------------------------------------------------------------------
+4). First use db command to use current database;
+	mysql> use newdb;
+	Database changed
+------------------------------------------------------------------------------------------
+Command to view tables;
+
+	mysql> show tables;
+	Empty set (0.02 sec)
+-----------------------------------------------------------------------------------------------
+
+Syntax to create table?
+
+CREATE TABLE table_Name(
+	column1 datatype1,
+	column2 datatype2,
+	column3 datatype3
+	);
+-----------------------------------------------------------------------------------------------------
+1. String
+2. Number
+3. Date&time
+----------------------------------------------------------------------------------------------
+
+syntax to create normal table for testing purpose
+
+mysql> create table testTable(
+    -> id int,
+    -> name char(20),
+    -> age int,
+    -> email char(20)
+    -> );
+Query OK, 0 rows affected (0.06 sec
+-------------------------------------------------------------------------------
+
+to show table property;
+
+mysql> show tables;
++-----------------+
+| Tables_in_newdb |
++-----------------+
+| testtable       |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> describe testtable;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| id    | int      | YES  |     | NULL    |       |
+| name  | char(20) | YES  |     | NULL    |       |
+| age   | int      | YES  |     | NULL    |       |
+| email | char(20) | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+-----------------------------------------------------------------------------------------------
+
+To insert values inside the table(testtable)
+
+
+mysql> insert into testtable(id,name,age,email)
+    -> values
+    -> (1,"Aditya",22,"aditya@gmail.com"),
+    -> (2,"Prajakta",25,"prajakta@gmail.com");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+------------------------------------------------------------
+to view tablerecord from table
+
+mysql> select * from testtable;
++------+----------+------+--------------------+
+| id   | name     | age  | email              |
++------+----------+------+--------------------+
+|    1 | Aditya   |   22 | aditya@gmail.com   |
+|    2 | Prajakta |   25 | prajakta@gmail.com |
++------+----------+------+--------------------+
+2 rows in set (0.00 sec)
+------------------------------------------------------------------------------------------
+1. String
+2. Number
+3. Date&time
+--------------------------------------------------------------
+
+1.String
+-------
+i. CHAR(SIZE) - 0-255 CHARACTERS
+2. VARCHAR(SIZE) - 0 - 65535
+3. BINARY(SIZE) - IT STORES BINARY VALUE(0-255)
+4. VARBINARY(SIZE) - 0-65535 BINARY VALUE
+5. TINYTEXT---- 0- 255 
+6. TEXT(SIZE) -- 65535
+7. MEDIUMTEXT -- 16,777,215 bytes (approximately 16 MB).
+8. LONGTEXT - 4,294,967,295 characters
+9. BLOB -- 65535
+9. TINYBLOB -- 0-255 CHARACTERS
+10. BLOB -- 65535
+11. MEDIUMBLOB -- 16,777,215 bytes (approximately 16 MB).
+12. LONGBLOB --  4,294,967,295 characters13. 
+13. ENUM(VALUE1,VALUE2,VALUE3)
+14. SET(VALUE1,VALUE2,VALUE3)
+
+------------------------------------------------------------------------------------------
+>> 2.NUMERIC DATA TYPE
+-----------------------------------------------------
+BIT(SIZE) --> 1-64 bits
+TINYINT(SIZE) - -128 to 127 (this is the default).
+INT(SIZE) - -2,147,483,648 TO 2,147,483,647
+INTEGER(SIZE) --  SAME AS ABOVE
+SMALLINT(SIZE) - -32768 TO 32767
+MEDIUMINT(SIZE) -- -8388608 TO 8388607
+BIGINT(SIZE) --> -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+BOOL -  0/1 - FALSE/TRUE
+BOOLEAN- 0/1- FALSE/TRUE
+FLOAT(SIZE,P) - 100.23 
+DOUBLE(SIZE,P) - 
+DEC(SIZE,D)
+--------------------------------------------------------------------------------------------
+3. DATE AND TIME DATA TYPE IN MYSQL
+------------------------------------------------
+1.DATE - "1000-01-01" TO ("9999-01-01")
+2. DATETIME- ("1000-01-01  HH:MM:SS")
+3. TIMESTAMP- YYYY-MM-DD HH:MM:SS
+4. TIME() - HH:MM:SS
+5. DATE - YYYY:MM:DD
+6. YEAR - YYYY
+7. MERIDIAN - %F
+
+-------------------------------------------------------------------------------
+
+Q. MYSQL CONSTRAINTS - [RESTRICTIONS]
+NOT NULL
+UNIQUL
+DEFAULT
+CHECK
+FOREIGN KEY
+PRIMARY KEY
+-----------------------------------------------------------------------------------------
+
+
+mysql> CREATE TABLE STUDENTDATA(
+    -> ID INT PRIMARY KEY AUTO_INCREMENT,
+    -> NAME CHAR(20) NOT NULL,
+    -> AGE INT NOT NULL CHECK(AGE>=18),
+    -> GENDER VARCHAR(11) NOT NULL,
+    -> PHONE CHAR(12) UNIQUE,
+    -> CITY CHAR(20) DEFAULT "AGRA"
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> DESCRIBE STUDENTDATA;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| ID     | int         | NO   | PRI | NULL    | auto_increment |
+| NAME   | char(20)    | NO   |     | NULL    |                |
+| AGE    | int         | NO   |     | NULL    |                |
+| GENDER | varchar(11) | NO   |     | NULL    |                |
+| PHONE  | char(12)    | YES  | UNI | NULL    |                |
+| CITY   | char(20)    | YES  |     | AGRA    |                |
++--------+-------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+
+
+mysql> INSERT INTO STUDENTDATA(NAME,AGE,GENDER,PHONE,CITY)
+    -> VALUES
+    -> ("ADITYA",22,"MALE","123456789","PUNE");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM STUDENTDATA;
++----+--------+-----+--------+-----------+------+
+| ID | NAME   | AGE | GENDER | PHONE     | CITY |
++----+--------+-----+--------+-----------+------+
+|  1 | ADITYA |  22 | MALE   | 123456789 | PUNE |
++----+--------+-----+--------+-----------+------+
+1 row in set (0.00 sec)
+
+
+
+mysql> SELECT * FROM STUDENTDATA;
++----+--------+-----+--------+-----------+------+
+| ID | NAME   | AGE | GENDER | PHONE     | CITY |
++----+--------+-----+--------+-----------+------+
+|  1 | ADITYA |  22 | MALE   | 123456789 | PUNE |
++----+--------+-----+--------+-----------+------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO STUDENTDATA(NAME,AGE,GENDER,PHONE)
+    -> VALUES
+    -> ("PRAJAKTA",28,"FEMALE","123456788");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM STUDENTDATA;
++----+----------+-----+--------+-----------+------+
+| ID | NAME     | AGE | GENDER | PHONE     | CITY |
++----+----------+-----+--------+-----------+------+
+|  1 | ADITYA   |  22 | MALE   | 123456789 | PUNE |
+|  2 | PRAJAKTA |  28 | FEMALE | 123456788 | AGRA |
++----+----------+-----+--------+-----------+------+
+2 rows in set (0.00 sec)
+
