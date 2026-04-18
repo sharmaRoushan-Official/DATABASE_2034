@@ -372,3 +372,144 @@ mysql> SELECT * FROM STUDENTDATA;
 +----+----------+-----+--------+-----------+------+
 2 rows in set (0.00 sec)
 
+-----------------------------------------------------------------------------------
+MySQL Constraints -> Restrictions
+-----------------------------
+1). NOT NULL
+2). UNIQUE
+3). DEFAULT
+4). CHECK
+5). PRIMARY KEY
+6). FOREIGN KEY
+
+----------------------------------------
+1). NOT NULL-
+	PREVENTS INSERTING NULL VALUES.
+2). UNIQUE-
+	ENSURES VALUES ARE NOT REPEATED(EXMAPLE EMAIL, PHONE)
+3). DEFAULT-
+	SETS A DEFAULT VALUE IF USER DOES NOT PROVIDE ONE.
+4). CHECK-
+	VALIDATES CONDITIONS BEFORE INSERTING
+5). PRIMARY KEY-
+	USED TO UNIQUE IDENTIFY EACH VALUE
+6). FOREIGN KEY-
+	LINKS TWO TABLES (EXAMPLE- STUDENT - COURSE)
+-------------------------------------------------------------------------------------------------
+>> WHERE COMPARISON OPERATOR
+-------------------------------------------->> 
+CONDTIONAL OPERATOR:
+---------------------------------
+SYNTAX:
+SELECT COLUMNS1,COLUMN2,COLUMN3.........(*)
+FROM TABLE_NAME
+WHERE CONDITION;
+--------------------------------------------------------------
+
+|OPERATOR	|	DESCRIPTSIONS	|
+|=		| 	EQUAL		|	
+|<		| 	LESS THAN	|
+|>		| 	GREATER THAN	|
+|<=		| 	LESS THAN OR EQUALS TO		|
+|>=		| 	GREATER THAN OR EQUALS TO	|
+|<> or !=	| 	NOT EQUALS TO			|
+|BETWEEN 	| 	BETWEEN A CERTAIN RANGE		|
+|LIKE		| 	SEARCH FOR A PATTERN		|
+|IN		| 	TO SPECIFY MULTIPLE POSSIBLE VALUES FOR A COLUMN.|
+---------------------------------------------------------------------------------------------------
+Q. write to check data under age 30?
+mysql> select * from studentdata
+    -> where age<=30;
++----+----------+-----+--------+------------+---------+
+| ID | NAME     | AGE | GENDER | PHONE      | CITY    |
++----+----------+-----+--------+------------+---------+
+|  1 | Aditya   |  22 | Male   | 123456789  | Pune    |
+|  2 | Prajakta |  25 | Female | 0123456789 | Germany |
+|  3 | Ajay     |  30 | Male   | 0123654987 | Madurai |
+|  9 | Binary   |  22 | male   | 123445678  | Meerat  |
+| 10 | Rohini   |  26 | Female | 1234456789 | Dwarka  |
++----+----------+-----+--------+------------+---------+
+5 rows in set (0.00 sec)
+
+Q. waq to display all values whose age>30;
+mysql> select * from studentdata
+    -> where age>=30;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
++----+-------------+-----+--------+------------+-----------+
+7 rows in set (0.00 sec)
+------------------------------------------------------------------------------------------------
+
+Q. waq to dislay all data whose gender is Male?
+select * from teachers where GENDER = "Male";
+
+Q. waq to display all data whose gender is female?
+select * from teachers where GENDER = "Female";
+
+
+Q. wat to display age is greater than 30 and below 50?
+select * from teachers where Age between 25 AND 31;
+
+or 
+
+
+mysql> select * from studentdata
+    -> where age>30 and age<=50;
+
+
+Q. waq to display all data whose city is Pune?
+select * from teachers where City = "Pune";
+
+Q. waq to display all data whose age is greater than 30 and whose city is mysore? 
+select * from teachers where Age > 30  AND City = "Mysore";
+
+
+--------------------------------------------------------------------------------------------------
+>> MySQL IN operator
+>> select data withy IN Oerator
+
+syntax:
+	where age=18 or age = 21;
+	where age IN(18,21)
+
+
+
+mysql> select * from studentdata where age IN(22,26);
++----+--------+-----+--------+------------+--------+
+| ID | NAME   | AGE | GENDER | PHONE      | CITY   |
++----+--------+-----+--------+------------+--------+
+|  1 | Aditya |  22 | Male   | 123456789  | Pune   |
+|  9 | Binary |  22 | male   | 123445678  | Meerat |
+| 10 | Rohini |  26 | Female | 1234456789 | Dwarka |
++----+--------+-----+--------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where age in (30,55);
++----+--------+-----+--------+------------+-----------+
+| ID | NAME   | AGE | GENDER | PHONE      | CITY      |
++----+--------+-----+--------+------------+-----------+
+|  3 | Ajay   |  30 | Male   | 0123654987 | Madurai   |
+|  7 | Preety |  55 | Female | 122345678  | Varanashi |
++----+--------+-----+--------+------------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from studentdata
+    -> where age in(55);
++----+--------+-----+--------+-----------+-----------+
+| ID | NAME   | AGE | GENDER | PHONE     | CITY      |
++----+--------+-----+--------+-----------+-----------+
+|  7 | Preety |  55 | Female | 122345678 | Varanashi |
++----+--------+-----+--------+-----------+-----------+
+1 row in set (0.00 sec)
+
+
