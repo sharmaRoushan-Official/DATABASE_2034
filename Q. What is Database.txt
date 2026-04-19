@@ -512,4 +512,238 @@ mysql> select * from studentdata
 +----+--------+-----+--------+-----------+-----------+
 1 row in set (0.00 sec)
 
+----------------------------------------------------------------------------------------------
+
+mysql> select name,age,city from studentdata where gender = "Female";
++-------------+-----+-----------+
+| name        | age | city      |
++-------------+-----+-----------+
+| Prajakta    |  25 | Germany   |
+| Sonam Gupta |  45 | Chennai   |
+| Preety      |  55 | Varanashi |
+| Rohini      |  26 | Dwarka    |
+| Madhuri     |  45 | AGRA      |
++-------------+-----+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where age between 18 and 51;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
++----+-------------+-----+--------+------------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where age between 50 and 100;
++----+--------+-----+--------+-----------+-----------+
+| ID | NAME   | AGE | GENDER | PHONE     | CITY      |
++----+--------+-----+--------+-----------+-----------+
+|  6 | Rohan  |  50 | Male   | 112345678 | Prayagraj |
+|  7 | Preety |  55 | Female | 122345678 | Varanashi |
+|  8 | Sagar  |  65 | Male   | 123345678 | Banaras   |
++----+--------+-----+--------+-----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where age in(18,50);
++----+-------+-----+--------+-----------+-----------+
+| ID | NAME  | AGE | GENDER | PHONE     | CITY      |
++----+-------+-----+--------+-----------+-----------+
+|  6 | Rohan |  50 | Male   | 112345678 | Prayagraj |
++----+-------+-----+--------+-----------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where id between 2 and 8;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
++----+-------------+-----+--------+------------+-----------+
+7 rows in set (0.00 sec)
+
+
+
+
+MySQL Like Operator & WildCards
+--------------------------------------------
+>> SELECT DATA WITH LIKE OPERATORS
+-------------------------------------------
+
+Ex:- WHERE NAME LIKE "S%"
+-----------------------------------------------------------------------------------------------
+WILD CARD CHARACTERS:
+	% -PERCENTAGE SYMBOL: REPRESENT ZERO,ONE, OR MULTIPLE CHARACTERS.
+ 	_ -UNDERSCORE SYMBOL: REPRESENT A SINGLE CHARACTERS
+------------------------------------------------------------------------------------------
+Pattern		|	Description
+-------------------------------------------------------
+Like "a%"	| starts with 'a' character
+----------------------------------------------------------
+Like "%a"	| End with 'a' character
+--------------------------------------------------------
+Like "%am%"	| have "am" in any position
+---------------------------------------------------------
+Like "a%m"	| starts with "a" and ends with "m"
+-------------------------------------------------------------
+Like "_a%"	| "a" in the second position
+-------------------------------------------------------------
+Like "__a%"	| "a" in the third position
+----------------------------------------------------------------
+Like "_OY"	| "O" in the second and "Y" in the third position
+----------------------------------------------------------------------------------------
+syntax:
+------------------
+select column1, column2, column.........
+where name like "pattern"
+-----------------------------------------------------------------------------------
+mysql> select * from studentdata;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where name like "a%";
++----+--------+-----+--------+------------+---------+
+| ID | NAME   | AGE | GENDER | PHONE      | CITY    |
++----+--------+-----+--------+------------+---------+
+|  1 | Aditya |  22 | Male   | 123456789  | Pune    |
+|  3 | Ajay   |  30 | Male   | 0123654987 | Madurai |
++----+--------+-----+--------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where name like "s%";
++----+-------------+-----+--------+------------+---------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY    |
++----+-------------+-----+--------+------------+---------+
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore  |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras |
++----+-------------+-----+--------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from studentdata;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where name like "%i";
++----+---------+-----+--------+------------+--------+
+| ID | NAME    | AGE | GENDER | PHONE      | CITY   |
++----+---------+-----+--------+------------+--------+
+| 10 | Rohini  |  26 | Female | 1234456789 | Dwarka |
+| 11 | Madhuri |  45 | Female | 123456678  | AGRA   |
++----+---------+-----+--------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where name like "%ar%";
++----+-----------+-----+--------+------------+---------+
+| ID | NAME      | AGE | GENDER | PHONE      | CITY    |
++----+-----------+-----+--------+------------+---------+
+|  4 | Siddharth |  35 | Male   | 0123654782 | Mysore  |
+|  8 | Sagar     |  65 | Male   | 123345678  | Banaras |
+|  9 | Binary    |  22 | male   | 123445678  | Meerat  |
++----+-----------+-----+--------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where name NOT LIKE "B%";
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
++----+-------------+-----+--------+------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from studentdata
+    -> where name like "P%Y";
++----+--------+-----+--------+-----------+-----------+
+| ID | NAME   | AGE | GENDER | PHONE     | CITY      |
++----+--------+-----+--------+-----------+-----------+
+|  7 | Preety |  55 | Female | 122345678 | Varanashi |
++----+--------+-----+--------+-----------+-----------+
+1 row in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------
+RegEx- [Regular Expression]
+-------------------------------
+>> Select Data with regular Expression
+----------------------------------------------------------------------
+Note: -
+	We Found Multiple Result Using Regular Expressions [RegExp]
+--------------------------------------------------------------------------------------------
+Example-
+	Where Name RegExp "Khan% | Poor"
+----------------------------------------------------------------------------------
+$ -  Last keyword 
+| - Next Keyword
+--------------------------------------------------------------------------------
+Regular Expresison pattern with Descriptions
+--------------------------------------------------
+Sign	| 	Pattern	| Descriptions
+--------------------------------------------------------
+^(carot)| "^ra"		| Beginning of the string
+------------------------------------------------------------
+$ [dollar]| "an$"	| End of string
+---------------------------------------------------------------
+[....]	| "[rms]"	| Any characters listed between the square bracket.
+----------------------------------------------------------------------------
+^[....]	| "^[a-z]e"	| Match with in the range and the second position is e.
+----------------------------------------------------------------------------------
+p1|p2|p3| "tom|john|harry"| Matches any of the patterns p1,p2,p3
+---------------------------------------------------------------------------
 
