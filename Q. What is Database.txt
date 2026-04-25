@@ -747,3 +747,77 @@ $ [dollar]| "an$"	| End of string
 p1|p2|p3| "tom|john|harry"| Matches any of the patterns p1,p2,p3
 ---------------------------------------------------------------------------
 
+Syntax:
+Select with Regular Expression
+-------------------------------------------------------
+SELECT COLUMN1,COLUMN2......
+FROM TABLE_NAME
+WHERE COLUMN_NAME RegExp PATTRN
+------------------------------------------------------------------------------------------------
+
+Q. Display all data whose name is starts from "Ro"
+
+# wild card
+mysql> SELECT * FROM STUDENTDATA
+    -> WHERE NAME LIKE "Ro%";
++----+--------+-----+--------+------------+-----------+
+| ID | NAME   | AGE | GENDER | PHONE      | CITY      |
++----+--------+-----+--------+------------+-----------+
+|  6 | Rohan  |  50 | Male   | 112345678  | Prayagraj |
+| 10 | Rohini |  26 | Female | 1234456789 | Dwarka    |
++----+--------+-----+--------+------------+-----------+
+2 rows in set (0.00 sec)
+
+# RegEXP
+mysql> SELECT * FROM STUDENTDATA
+    -> WHERE NAME REGEXP "^Ro";
++----+--------+-----+--------+------------+-----------+
+| ID | NAME   | AGE | GENDER | PHONE      | CITY      |
++----+--------+-----+--------+------------+-----------+
+|  6 | Rohan  |  50 | Male   | 112345678  | Prayagraj |
+| 10 | Rohini |  26 | Female | 1234456789 | Dwarka    |
++----+--------+-----+--------+------------+-----------+
+2 rows in set (0.01 sec)
+
+
+-----------------------------------------------------------------------------------------------
+Q1. Display all students whose name starts with A.
+
+Q2. Display all students whose name ends with i.
+
+Q3. Display students whose city starts with M.
+
+Q4. Display students whose city ends with e.
+
+Q5. Display students whose name contains substring ar.
+
+Q6. Display students who belong to Pune OR Chennai or AGRA.
+
+Q7. Display students whose name starts with A OR P OR S.
+
+Q8. Display students whose gender starts with letter M(Male)
+
+Q9. Display students whose second letter is "o".
+
+Q10. Display students whose city starts with any letter from A to M.
+
+Q11. Display student whose name starts with a Vowel.
+
+Q12. Display students whose city starts with a vowel.
+
+Q13. Display students whose name ends with letter a.
+
+Q14. Display students whose city contains  substring "ra".
+
+Q15. Display students whose name starts with letters between A and M.
+
+Q16. Display students whose name starts wit letters between N and Z.
+
+Q17. Display students whose city starts with P or M.
+
+Q18. Display students whose name contains letter y anywhere.
+
+Q19. Display students whose name hast exactly 5 characters.
+
+Q20. Display students whose phone number starts with 0.
+
