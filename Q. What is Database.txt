@@ -789,7 +789,7 @@ Q3. Display students whose city starts with M.
 
 Q4. Display students whose city ends with e.
 
-Q5. Display students whose name contains substring ar.
+Q5. Display students whose name contains substring "ar".
 
 Q6. Display students who belong to Pune OR Chennai or AGRA.
 
@@ -820,4 +820,670 @@ Q18. Display students whose name contains letter y anywhere.
 Q19. Display students whose name hast exactly 5 characters.
 
 Q20. Display students whose phone number starts with 0.
+-------------------------------------------------------------------------------------------------
+
+
+Q1. Display all students whose name starts with A.
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE 'A%';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP '^A';
+
+---
+
+Q2. Display all students whose name ends with i.
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE '%i';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP 'i$';
+
+---
+
+Q3. Display students whose city starts with M.
+Ans (Wildcard):
+SELECT * FROM students WHERE city LIKE 'M%';
+Ans (REGEXP):
+SELECT * FROM students WHERE city REGEXP '^M';
+
+---
+
+Q4. Display students whose city ends with e.
+Ans (Wildcard):
+SELECT * FROM students WHERE city LIKE '%e';
+Ans (REGEXP):
+SELECT * FROM students WHERE city REGEXP 'e$';
+
+---
+
+Q5. Display students whose name contains substring ar.
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE '%ar%';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP 'ar';
+
+---
+
+Q6. Display students who belong to Pune OR Chennai OR AGRA.
+Ans (Wildcard):
+SELECT * FROM students WHERE city LIKE 'Pune' OR city LIKE 'Chennai' OR city LIKE 'AGRA';
+Ans (REGEXP):
+SELECT * FROM students WHERE city REGEXP '^(Pune|Chennai|AGRA)$';
+
+---
+
+Q7. Display students whose name starts with A OR P OR S.
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE 'A%' OR name LIKE 'P%' OR name LIKE 'S%';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP '^(A|P|S)';
+
+---
+
+Q8. Display students whose gender starts with letter M (Male).
+Ans (Wildcard):
+SELECT * FROM students WHERE gender LIKE 'M%';
+Ans (REGEXP):
+SELECT * FROM students WHERE gender REGEXP '^M';
+
+---
+
+Q9. Display students whose second letter is "o".
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE '_o%';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP '^.o';
+
+---
+
+Q10. Display students whose city starts with any letter from A to M.
+Ans (Wildcard):
+SELECT * FROM students WHERE city LIKE '[A-M]%';
+Ans (REGEXP):
+SELECT * FROM students WHERE city REGEXP '^[A-M]';
+
+---
+
+Q11. Display student whose name starts with a Vowel.
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE 'A%' OR name LIKE 'E%' OR name LIKE 'I%' OR name LIKE 'O%' OR name LIKE 'U%';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP '^[AEIOU]';
+
+---
+
+Q12. Display students whose city starts with a vowel.
+Ans (Wildcard):
+SELECT * FROM students WHERE city LIKE 'A%' OR city LIKE 'E%' OR city LIKE 'I%' OR city LIKE 'O%' OR city LIKE 'U%';
+Ans (REGEXP):
+SELECT * FROM students WHERE city REGEXP '^[AEIOU]';
+
+---
+
+Q13. Display students whose name ends with letter a.
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE '%a';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP 'a$';
+
+---
+
+Q14. Display students whose city contains substring "ra".
+Ans (Wildcard):
+SELECT * FROM students WHERE city LIKE '%ra%';
+Ans (REGEXP):
+SELECT * FROM students WHERE city REGEXP 'ra';
+
+---
+
+Q15. Display students whose name starts with letters between A and M.
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE '[A-M]%';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP '^[A-M]';
+
+---
+
+Q16. Display students whose name starts with letters between N and Z.
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE '[N-Z]%';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP '^[N-Z]';
+
+---
+
+Q17. Display students whose city starts with P or M.
+Ans (Wildcard):
+SELECT * FROM students WHERE city LIKE 'P%' OR city LIKE 'M%';
+Ans (REGEXP):
+SELECT * FROM students WHERE city REGEXP '^(P|M)';
+
+---
+
+Q18. Display students whose name contains letter y anywhere.
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE '%y%';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP 'y';
+
+---
+
+Q19. Display students whose name has exactly 5 characters.
+Ans (Wildcard):
+SELECT * FROM students WHERE name LIKE '_____';
+Ans (REGEXP):
+SELECT * FROM students WHERE name REGEXP '^.....$';
+
+---
+
+Q20. Display students whose phone number starts with 0.
+Ans (Wildcard):
+SELECT * FROM students WHERE phone LIKE '0%';
+Ans (REGEXP):
+SELECT * FROM students WHERE phone
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+MySQL ORDER BY AND DISTINCT
+-------------------------------------------------------------------------------------------------------
+
+SYNTAX:
+SELECT DATA WITH ORDER BY
+-----------------------------------------------------------------
+
+ORDER BY NAME ASC;
+ORDER BY NAME DESC;
+----------------------------------------------------------------------------------------
+ORDER BY NAME; # DEFAULT WORKS ON ASCENDING ORDER 
+------------------------------------------------------------------------------------------------
+
+
+mysql> SELECT * FROM STUDENTDATA
+    -> ORDER BY NAME;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> ORDER BY NAME ASC;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> ORDER BY AGE ASC;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> ORDER BY CITY ASC;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> ORDER BY ID ASC;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> ORDER BY PHONE ASC;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> ORDER BY NAME DESC;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------------
+SELECT DATA WITH DISTINCT
+------------------------------------------------------
+
+SYNTAX:
+
+SELECT DISTINCT COLUMN_NAME FROM TABLE_NAME;
+------------------------------------------------------------------------------------------
+
+
+
+MYSQL ISNULL AND NOT NULL
+--------------------------------------------
+SELECT DATA WITH ISNULL
+----------------------------------------
+SYNTAX:
+
+SELECT COLUMN1,COLUMN2.........
+FROM TABLE_NAME
+WHERE COLUMN IS NULL;
+--------------------------------------------------------------------------
+
+
+mysql> SELECT * FROM STUDENTS;
++------+-----------+------+
+| id   | name      | age  |
++------+-----------+------+
+|    1 | Ajay      |   25 |
+|    2 | Siddharth |   26 |
+|    3 | Prajakta  |   27 |
+|    4 | Aditya    |   28 |
++------+-----------+------+
+4 rows in set (0.03 sec)
+
+mysql> DESCRIBE STUDENTS;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| id    | int      | YES  |     | NULL    |       |
+| name  | char(25) | YES  |     | NULL    |       |
+| age   | int      | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO STUDENTS(ID,AGE)
+    -> VALUES
+    -> (5,45);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM STUDENTS;
++------+-----------+------+
+| id   | name      | age  |
++------+-----------+------+
+|    1 | Ajay      |   25 |
+|    2 | Siddharth |   26 |
+|    3 | Prajakta  |   27 |
+|    4 | Aditya    |   28 |
+|    5 | NULL      |   45 |
++------+-----------+------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTS
+    -> WHERE NAME IS NULL;
++------+------+------+
+| id   | name | age  |
++------+------+------+
+|    5 | NULL |   45 |
++------+------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> WHERE NAME IS NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> WHERE NAME IS NOT NULL;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> DESCRIBE STUDENTDATA;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| ID     | int         | NO   | PRI | NULL    | auto_increment |
+| NAME   | char(50)    | NO   |     | NULL    |                |
+| AGE    | int         | NO   |     | NULL    |                |
+| GENDER | char(10)    | NO   |     | NULL    |                |
+| PHONE  | char(13)    | YES  | UNI | NULL    |                |
+| CITY   | varchar(15) | NO   |     | AGRA    |                |
++--------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> DESC STUDENTDATA;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| ID     | int         | NO   | PRI | NULL    | auto_increment |
+| NAME   | char(50)    | NO   |     | NULL    |                |
+| AGE    | int         | NO   |     | NULL    |                |
+| GENDER | char(10)    | NO   |     | NULL    |                |
+| PHONE  | char(13)    | YES  | UNI | NULL    |                |
+| CITY   | varchar(15) | NO   |     | AGRA    |                |
++--------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+---------------------------------------------------------------------------------------------------
+>> LIMIT OR OFFSET
+------------------------------------------
+SELECT DATA WITH LIMIT OR OFFSET
+---------------------------------------------------------
+
+SYNTAX:
+
+SELECT COLUMNS1,COLUMN2,COLUMN3............
+WHERE CONDITION
+LIMIT NUMBER;
+-----------------------------------------------------------------------------------------------------------
+
+WRITE A QUERY TO DISPLAY ONLY 3 DATA WHICH IS GREATER THAN 30?
+
+WRITE A QUERY TO DISPLAY ONLY 5 DATA WHICH IS GREATER THAN 30 AND ONLY MALE.
+
+WRITE A QUERY TO DISPLAY ONLY 5 DATA WHICH IS GREATER THAN 50 AND ONLY FEMALE.
+-----------------------------------------------------------------------------------------------
+
+
+mysql> SELECT * FROM STUDENTDATA
+    -> WHERE AGE>30
+    -> ORDER BY AGE DESC
+    -> LIMIT 3;
++----+--------+-----+--------+-----------+-----------+
+| ID | NAME   | AGE | GENDER | PHONE     | CITY      |
++----+--------+-----+--------+-----------+-----------+
+|  8 | Sagar  |  65 | Male   | 123345678 | Banaras   |
+|  7 | Preety |  55 | Female | 122345678 | Varanashi |
+|  6 | Rohan  |  50 | Male   | 112345678 | Prayagraj |
++----+--------+-----+--------+-----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> LIMIT 3,6;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
++----+-------------+-----+--------+------------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> LIMIT 3,4;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
++----+-------------+-----+--------+------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA
+    -> LIMIT 3,10;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
++----+-------------+-----+--------+------------+-----------+
+8 rows in set (0.00 sec)
+---------------------------------------------------------------------------------------------------------------
+
+>> AGGRIGATE FUNCTION
+----------------------------------------------------------------------------------------
+MYSCOUNT COUNT,SUM,MIN,MAX,AVG 
+----------------------------------------------
+
+
+SYNTAX:
+----------------------------
+COUNT(COLUMN_NAME): COUNT THE TOTAL NUMBER OF RECORDS.
+SUM(COLUMN_NAME): SUM OF THE RECORDS.
+MIN(COLUMN_NAME): MINIMUM VALUE OF COLUMN
+MAX(COLUMN_NAME): RETURN THE MAX VALUE OF THE COLUMN
+AVG(COLUMN_NAME): RETURN THE AVG VALUE OF THE COLUMN
+------------------------------------------------------------------------------------------------
+
+SYNTAX:
+SELECT COUNT(COL_NAME)
+FROM TABLE_NAME
+WHERE CONDITION
+ORDER BY
+LIMIT 3;
+---------------------------------------------------------------------------------------------
+
+mysql> SELECT COUNT(NAME) AS TOTAL_NAME FROM STUDENTS;
++------------+
+| TOTAL_NAME |
++------------+
+|          4 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(AGE) AS TOTAL_NAME FROM STUDENTS;
++------------+
+| TOTAL_NAME |
++------------+
+|          5 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(AGE) AS TOTAL_AGE FROM STUDENTS;
++-----------+
+| TOTAL_AGE |
++-----------+
+|         5 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) AS TOTAL_AGE FROM STUDENTS;
++-----------+
+| TOTAL_AGE |
++-----------+
+|         5 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(NAME) FROM STUDENTDATA;
++-------------+
+| COUNT(NAME) |
++-------------+
+|          11 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM STUDENTDATA;
++----------+
+| COUNT(*) |
++----------+
+|       11 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENTDATA;
++----+-------------+-----+--------+------------+-----------+
+| ID | NAME        | AGE | GENDER | PHONE      | CITY      |
++----+-------------+-----+--------+------------+-----------+
+|  1 | Aditya      |  22 | Male   | 123456789  | Pune      |
+|  2 | Prajakta    |  25 | Female | 0123456789 | Germany   |
+|  3 | Ajay        |  30 | Male   | 0123654987 | Madurai   |
+|  4 | Siddharth   |  35 | Male   | 0123654782 | Mysore    |
+|  5 | Sonam Gupta |  45 | Female | 123045678  | Chennai   |
+|  6 | Rohan       |  50 | Male   | 112345678  | Prayagraj |
+|  7 | Preety      |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar       |  65 | Male   | 123345678  | Banaras   |
+|  9 | Binary      |  22 | male   | 123445678  | Meerat    |
+| 10 | Rohini      |  26 | Female | 1234456789 | Dwarka    |
+| 11 | Madhuri     |  45 | Female | 123456678  | AGRA      |
++----+-------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT SUM(AGE) FROM STUDENTDATA;
++----------+
+| SUM(AGE) |
++----------+
+|      420 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(NAME) FROM STUDENTDATA;
++-----------+
+| MIN(NAME) |
++-----------+
+| Aditya    |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT Max(NAME) FROM STUDENTDATA;
++-------------+
+| Max(NAME)   |
++-------------+
+| Sonam Gupta |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT avg(age) FROM STUDENTDATA;
++----------+
+| avg(age) |
++----------+
+|  38.1818 |
++----------+
+1 row in set (0.00 sec)
+-----------------------------------------------------------------------------------------------------------
+
+MySQL update - it updates only values.
+-----------------------------------------------------------
+syntax:
+
+UPDATE TABLE_NAME
+SET COLUMN_NAME1,COLUMN2,COLUMN3 = VALUE1,VALUE2,VALUE3
+WHERE CONDITION; # CONDITION WORKS ON ON ID.
+---------------------------------------------------------------------------------------------------
+
+
+5). PRIMARY KEY
+6). FOREIGN KEY
+
+--------------------------------------------------------------
+>> MySQL Primary and Foreign Key
+-------------------------------------------
+
+Q. What is Primary key?
+* Primary key always has unique data.
+* same as unique but Unique can store null value but primary key not store null value.
+* Unique has applied multiple column but primary key is only one key in your table.
+* A primary key cannot have null value.
+* A table can contains only one primary key constraint.
+--------------------------------------------------------------------------------------------
+
+
+Q. What is Foreign Key Constrains?
+----------------------------------
+
+A Foreign key is a key used to link two tables together.
+
+A Foreign key in one table used to print Primary key in another table.
+------------------------------------------------------------------------------------------- 
+
+
+
+
+
+
 
