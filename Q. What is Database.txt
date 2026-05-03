@@ -1481,6 +1481,177 @@ A Foreign key is a key used to link two tables together.
 A Foreign key in one table used to print Primary key in another table.
 ------------------------------------------------------------------------------------------- 
 
+✅ What is a JOIN in MYSQL?
+A Join is used to combine rows from two or more tables based on related column(usually a Primary key <-> Foreign key relationship).
+
+so JOIN helps you fetch data like:
+Student Name+ Subject + Marks in one Query.
+----------------------------------------------------------------------------------------------
+>> Why JOINS are Needed?
+Without JOINS, you Would need multiple quieries and manual Mapping:
+
+JOIN help to:
+
+>> Fetch combined data easily.
+>> Reduce Redundancy.
+>> Build Reports
+>> Peform relational database operations.
+------------------------------------------------------------------------------------------------
+
+>> ✅ Types of JOINS in MYSQL
+
+>> 1. INNER JOIN
+>> 2. LEFT JOIN
+>> 3. RIGHT JOIN
+>> 4. CROSS JOIN
+>> 5. SELF JOIN
+>> 6. FULL OUTER JOIN(not directly supported in MYSQL, but can be achieved using UNION).
+
+-----------------------------------------------------------------------------------------------
+
+mysql> create table employee(
+    -> emp_id int not null unique auto_increment,
+    -> name char(50) not null,
+    -> city char(50) not null
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> describe employee;
++--------+----------+------+-----+---------+----------------+
+| Field  | Type     | Null | Key | Default | Extra          |
++--------+----------+------+-----+---------+----------------+
+| emp_id | int      | NO   | PRI | NULL    | auto_increment |
+| name   | char(50) | NO   |     | NULL    |                |
+| city   | char(50) | NO   |     | NULL    |                |
++--------+----------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employee(name,city)
+    -> values
+    -> ("Rohit","Chennai"),
+    -> ("Priya","Mumbai"),
+    -> ("John","Delhi"),
+    -> ("Sara","Pune");
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> create table marks(
+    -> mark_id int primary key auto_increment,
+    -> employee_id int not null,
+    -> subject char(50) not null,
+    -> marks int,
+    -> foreign key(employee_id) References employee(emp_id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> describe marks;
++-------------+----------+------+-----+---------+----------------+
+| Field       | Type     | Null | Key | Default | Extra          |
++-------------+----------+------+-----+---------+----------------+
+| mark_id     | int      | NO   | PRI | NULL    | auto_increment |
+| employee_id | int      | NO   | MUL | NULL    |                |
+| subject     | char(50) | NO   |     | NULL    |                |
+| marks       | int      | YES  |     | NULL    |                |
++-------------+----------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into marks(employee_id,subject,marks)
+    -> values
+    -> (1,"Math",85),
+    -> (2,"Science",90),
+    -> (3,"Math",75),
+    -> (4,"English",88)
+    -> ;
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++--------+-------+---------+
+| emp_id | name  | city    |
++--------+-------+---------+
+|      1 | Rohit | Chennai |
+|      2 | Priya | Mumbai  |
+|      3 | John  | Delhi   |
+|      4 | Sara  | Pune    |
++--------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from marks;
++---------+-------------+---------+-------+
+| mark_id | employee_id | subject | marks |
++---------+-------------+---------+-------+
+|       1 |           1 | Math    |    85 |
+|       2 |           2 | Science |    90 |
+|       3 |           3 | Math    |    75 |
+|       4 |           4 | English |    88 |
++---------+-------------+---------+-------+
+4 rows in set (0.00 sec)
+
+---------------------------------------------------------------------------------------------------
+>> 1. INNER JOIN
+
+>> Return only the matching records from both table;
+
+
+mysql> select employee.emp_id, employee.name, employee.city,marks.subject, marks.marks
+    -> from employee
+    -> inner join marks
+    -> on employee.emp_id = marks.emp_id;
++--------+-------+---------+---------+-------+
+| emp_id | name  | city    | subject | marks |
++--------+-------+---------+---------+-------+
+|      1 | Rohit | Chennai | Math    |    90 |
+|      2 | Priya | Mumbai  | Science |    85 |
+|      3 | John  | Delhi   | Math    |    75 |
+|      4 | Sara  | Pune    | English |    65 |
++--------+-------+---------+---------+-------+
+4 rows in set (0.00 sec)
+
+------------------------------------------------
+>> 2. LEFT JOIN
+-----------------------------
+Meaning: 
+----------------
+>> Returns all records from the left table, and matching records from right table.
+>> if no match exists --> Null value
+----------------------------------------------------------------------
+mysql> select employee.emp_id, employee.name, employee.city,marks.mark_id,marks.emp_id,marks.subject,marks.marks
+    -> from employee
+    -> left join marks
+    -> on employee.emp_id = marks.emp_id;
++--------+--------+----------+---------+--------+---------+-------+
+| emp_id | name   | city     | mark_id | emp_id | subject | marks |
++--------+--------+----------+---------+--------+---------+-------+
+|      1 | Rohit  | Chennai  |     101 |      1 | Math    |    90 |
+|      2 | Priya  | Mumbai   |     102 |      2 | Science |    85 |
+|      3 | John   | Delhi    |     103 |      3 | Math    |    75 |
+|      4 | Sara   | Pune     |     104 |      4 | English |    65 |
+|      5 | Rohan  | Amravati |    NULL |   NULL | NULL    |  NULL |
+|      6 | Rohini | Mysore   |    NULL |   NULL | NULL    |  NULL |
++--------+--------+----------+---------+--------+---------+-------+
+6 rows in set (0.00 sec)
+---------------------------------------------------------------------------------------------
+
+3.RIGHT JOIN
+
+
+mysql> select employee.emp_id, employee.name, employee.city,marks.mark_id,marks.emp_id,marks.subject,marks.marks
+    -> from employee
+    -> right join marks
+    -> on employee.emp_id = marks.emp_id;
++--------+-------+---------+---------+--------+---------+-------+
+| emp_id | name  | city    | mark_id | emp_id | subject | marks |
++--------+-------+---------+---------+--------+---------+-------+
+|      1 | Rohit | Chennai |     101 |      1 | Math    |    90 |
+|      2 | Priya | Mumbai  |     102 |      2 | Science |    85 |
+|      3 | John  | Delhi   |     103 |      3 | Math    |    75 |
+|      4 | Sara  | Pune    |     104 |      4 | English |    65 |
++--------+-------+---------+---------+--------+---------+-------+
+4 rows in set (0.00 sec)
+
+---------------------------------------------------------------------------------------------------------
+
+
 
 
 
