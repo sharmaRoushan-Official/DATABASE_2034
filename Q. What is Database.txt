@@ -1651,6 +1651,274 @@ mysql> select employee.emp_id, employee.name, employee.city,marks.mark_id,marks.
 
 ---------------------------------------------------------------------------------------------------------
 
+4. CROSS JOIN
+
+Returns Cartesian Product(all combinations)
+
+If table 1 has 4 rows and table2 has 4 rows
+
+output 4x4 = 16 product
+
+------------------------------------------------------------------------------------
+syntax:
+
+SELECT *
+FROM table1
+CROSS JOIN table2
+--------------------------------------------------------------
+
+mysql> select employee.name,  marks.subject
+    -> from employee
+    -> cross join marks;
++--------+---------+
+| name   | subject |
++--------+---------+
+| Rohit  | English |
+| Rohit  | Math    |
+| Rohit  | Science |
+| Rohit  | Math    |
+| Priya  | English |
+| Priya  | Math    |
+| Priya  | Science |
+| Priya  | Math    |
+| John   | English |
+| John   | Math    |
+| John   | Science |
+| John   | Math    |
+| Sara   | English |
+| Sara   | Math    |
+| Sara   | Science |
+| Sara   | Math    |
+| Rohan  | English |
+| Rohan  | Math    |
+| Rohan  | Science |
+| Rohan  | Math    |
+| Rohini | English |
+| Rohini | Math    |
+| Rohini | Science |
+| Rohini | Math    |
++--------+---------+
+24 rows in set (0.00 sec)
+----------------------------------------------------------------------------------------------------------
+
+5. SELF JOIN
+A table join with itself
+Used in Hierarchical relationship like:
+
+* Employee and Manager
+* Category and Parent Category
+
+------------------------------------------------------------------------------
+
+mysql> select e.name as employee_name, e.city as employee_city
+    -> from employee e
+    -> ;
++---------------+---------------+
+| employee_name | employee_city |
++---------------+---------------+
+| Rohit         | Chennai       |
+| Priya         | Mumbai        |
+| John          | Delhi         |
+| Sara          | Pune          |
+| Rohan         | Amravati      |
+| Rohini        | Mysore        |
++---------------+---------------+
+6 rows in set (0.00 sec)
+
+
+-----------------------------------------------------------------------------------------------
+
+6. Full Outer JOIN
+
+MySQL does not support Full Outer JOIN directly
+------------------------------------------------
+
+FullOuterJOIN = Left JOIN + Right JOIN
+
+
+---------------------------------------------------------------------------------------------------------
+
+mysql> select employee.emp_id, employee.name, marks.subject, marks.marks
+    -> from employee
+    -> Left JOIN marks
+    -> on employee.emp_id = marks.emp_id
+    -> UNION
+    -> select employee.emp_id, employee.name,marks.subject, marks.marks
+    -> from employee
+    -> Right Join marks
+    -> on employee.emp_id = marks.emp_id;
++--------+--------+---------+-------+
+| emp_id | name   | subject | marks |
++--------+--------+---------+-------+
+|      1 | Rohit  | Math    |    90 |
+|      2 | Priya  | Science |    85 |
+|      3 | John   | Math    |    75 |
+|      4 | Sara   | English |    65 |
+|      5 | Rohan  | NULL    |  NULL |
+|      6 | Rohini | NULL    |  NULL |
++--------+--------+---------+-------+
+6 rows in set (0.00 sec)
+
+---------------------------------------------------------------------------------------------------
+
+>> Subquery with Exists and NOT Exists
+------------------------------------------------------------------------------------------
+>> What is a Subquery?
+A subquery is a query written inside another query.
+
+--------------------------------------------------------------------------
+Example:
+
+select ........
+from tableName
+where column operator(select..........)
+--------------------------------------------------------------------------------------
+Subqueries are used for
+* filtering records
+* checking conditions
+* finding matching/non-matching data
+* reporting logic 
+-------------------------------------------------------------------------------------------------
+>> What is EXISTS in MySQL?
+meaning of Exists
+
+Exists Check whether the subquery returns at least one row.
+
+* If the subquery return 1 or more rows -> True
+* if it return 0 rows -> False
+
+Exists does not return data, it returns only True/False
+--------------------------------------------------------------------------------------------
+Syntax:
+
+select Column_list
+from table1
+where Exits(
+	select 1
+	from table2
+	where condition
+	);
+-------------------------------------------------------------------------------------------------
+1. show students who have at least one records in a table marks.
+---------------------------------------------------------------------
+
+mysql> select emp_id,name,city
+    -> from employee e
+    -> where EXISTS(
+    -> select 1 from marks m where m.emp_id = e.emp_id);
++--------+-------+---------+
+| emp_id | name  | city    |
++--------+-------+---------+
+|      1 | Rohit | Chennai |
+|      2 | Priya | Mumbai  |
+|      3 | John  | Delhi   |
+|      4 | Sara  | Pune    |
++--------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_id,name,city
+    -> from employee e
+    -> where NOT EXISTS(
+    -> select 1 from marks m where m.emp_id = e.emp_id);
++--------+--------+----------+
+| emp_id | name   | city     |
++--------+--------+----------+
+|      5 | Rohan  | Amravati |
+|      6 | Rohini | Mysore   |
++--------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select emp_id,name,city
+    -> from employee e
+    -> where NOT EXISTS(
+    -> select * from marks m where m.emp_id = e.emp_id);
++--------+--------+----------+
+| emp_id | name   | city     |
++--------+--------+----------+
+|      5 | Rohan  | Amravati |
+|      6 | Rohini | Mysore   |
++--------+--------+----------+
+2 rows in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------
+
+2. STUDENT WHO SCORED MORE THAN 80 IN ANY SUBJECT.
+requirement
+show students who scored>80 in at least one subject.
+-----------------------------------------------------------------------------------------------------
+
+mysql> select emp_id,name,city
+    -> from employee e
+    -> where EXISTS( select 1 from marks m where m.emp_id = e.emp_id AND m.marks>80);
++--------+-------+---------+
+| emp_id | name  | city    |
++--------+-------+---------+
+|      1 | Rohit | Chennai |
+|      2 | Priya | Mumbai  |
++--------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select emp_id,name,city
+    -> from employee e
+    -> where EXISTS( select * from marks m where m.emp_id = e.emp_id AND m.marks>80);
++--------+-------+---------+
+| emp_id | name  | city    |
++--------+-------+---------+
+|      1 | Rohit | Chennai |
+|      2 | Priya | Mumbai  |
++--------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select emp_id,name,city
+    -> from employee e
+    -> where NOT EXISTS( select * from marks m where m.emp_id = e.emp_id AND m.marks>80);
++--------+--------+----------+
+| emp_id | name   | city     |
++--------+--------+----------+
+|      3 | John   | Delhi    |
+|      4 | Sara   | Pune     |
+|      5 | Rohan  | Amravati |
+|      6 | Rohini | Mysore   |
++--------+--------+----------+
+4 rows in set (0.00 sec)
+
+
+-------------------------------------------------------------------------------------------------
+
+3. Students who have marks in Science
+Requirement
+Find students who wrote science examp
+------------------------------------------------------------------------------------
+
+4. Students who never scored more than 80(NOT EXISTS)
+Requirement:
+Student wo do not have any subject marks>80
+-------------------------------------------------------------------------------------
+5.Students who have marks in Science(Exits)
+Requirement:
+Find students who write Science Exam
+-------------------------------------------------------------------------------------------
+
+6.Students who did not have marks in Science(Exits)
+Requirement:
+Find students who did not write Science Exam
+---------------------------------------------------------------------------------------
+
+
+>> UNION and UNIONALL
+-----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
