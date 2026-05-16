@@ -1908,6 +1908,282 @@ Find students who did not write Science Exam
 >> UNION and UNIONALL
 -----------------------------------------------------------------------------------------------------
 
+✅ What is UNION in MySQL?
+Union is used to combine the result of two or more SELECT queries into a single result set.
+
+📌 It combines row vertically(one query result below another)
+-----------------------------------------------------------------------------
+
+Syntax of UNION
+---------------
+SELECT column_list from table1
+UNION
+SELECT column_list from table2;
+--------------------------------------------------------------------------
+✅ Rules of UNION
+
+✅ Rule 1:
+Each SELECT must have the same number of columns
+
+✅ Rule 2:
+The column data type should be compactable
+
+✅ Rule 3;
+Columns name in output come from the Select query
+
+✅ Rule 4:
+UNION removes duplicate rows automatically.
+----------------------------------------------------------------------------------
+
+
+✅ What is UNION ALL?
+>> UNION ALL is same as UNION but:
+
+ ✅It keeps duplicate rows
+ ✅ Faster than UNION(because no duplicate check)
+---------------------------------------------------------------------------------------------------
+
+✅ UNION vs UNION ALL
+---------------------------
+
+Feature			|UNION	|	UNION ALL	|
+----------------------------------------------------------------
+Removes duplicates	|✅YES	|❌ NO			|
+------------------------------------------------------------
+Keeps duplicates	|❌ NO	|✅ YES			|
+-----------------------------------------------------------------
+Performance		|Slower	|Faster			|
+-----------------------------------------------------------------------
+Uses Sorting		| Yes	| NO			|
+------------------------------------------------------------------------------------
+
+1. Example:
+	Get all student names from Chennai and Mumbai together.
+-------------------------------------------------------------------------------------
+mysql> select name,city
+    -> from employee
+    -> where city = "Chennai"
+    -> UNION
+    -> Select name,city
+    -> from employee
+    -> where city = "Mumbai";
++-------+---------+
+| name  | city    |
++-------+---------+
+| Rohit | Chennai |
+| Priya | Mumbai  |
++-------+---------+
+2 rows in set (0.00 sec)
+-------------------------------------------------------------------------------------------------
+
+
+Example 2:
+UNION All 
+
+
+
+------------------
+mysql> select name,city
+    -> from employee
+    -> where city = "Chennai"
+    -> UNION ALL
+    -> Select name,city
+    -> from employee
+    -> where city = "Mumbai";
++-------+---------+
+| name  | city    |
++-------+---------+
+| Rohit | Chennai |
+| Priya | Mumbai  |
++-------+---------+
+2 rows in set (0.00 sec)
+
+Output is same(because no duplicate value exists)
+-------------------------------------------------------------------------------------------
+
+
+2. Combine student from Chennai with students having student_id<=2;
+--------------------------------------------------------------------------------------------
+mysql> select name,city
+    -> from employee
+    -> where city = "Dubai"
+    -> UNION
+    -> select name,city
+    -> from employee
+    -> where emp_id<=2;
++-------+---------+
+| name  | city    |
++-------+---------+
+| Rohit | Chennai |
+| Priya | Mumbai  |
++-------+---------+
+3 rows in set (0.00 sec)
+
+* First Query return Rohit
+* Second query returns Rohit and Priya
+* Rohit is duplicate, Union Removes it
+--------------------------------------------------------------
+
+mysql> select name,city
+    -> from employee
+    -> where city = "Chennai"
+    -> UNION All
+    -> select name,city
+    -> from employee
+    -> where emp_id<=2;
++-------+---------+
+| name  | city    |
++-------+---------+
+| Rohit | Chennai |
+| Rohit | Chennai |
+| Priya | Mumbai  |
++-------+---------+
+3 rows in set (0.00 sec)
+----------------------------------------------------------------------------------------------
+
+4. Exmple :
+show student names and subject names in a single list
+
+>> We must select same number of columns
+----------------------------------------------------------------
+mysql> select name as info
+    -> from employee
+    -> UNION
+    -> select subject as info
+    -> from marks;
++---------+
+| info    |
++---------+
+| Rohit   |
+| Priya   |
+| John    |
+| Sara    |
+| Rohan   |
+| Rohini  |
+| Math    |
+| Science |
+| English |
++---------+
+9 rows in set (0.00 sec)
+
+mysql> select name as info
+    -> from employee
+    -> UNION ALL
+    -> select subject as info
+    -> from marks;
++---------+
+| info    |
++---------+
+| Rohit   |
+| Priya   |
+| John    |
+| Sara    |
+| Rohan   |
+| Rohini  |
+| Math    |
+| Science |
+| Math    |
+| English |
++---------+
+10 rows in set (0.00 sec)
+
+-------------------------------------------------------
+Example: UNION with Multiple Columns
+
+Req:
+	show emp_id and name from employee
+	and emp_id and subject from marks
+----------------------------------------------------------------------------
+
+mysql> select emp_id,name as details
+    -> from employee
+    -> UNION
+    -> select emp_id, subject as details
+    -> from marks;
++--------+---------+
+| emp_id | details |
++--------+---------+
+|      1 | Rohit   |
+|      2 | Priya   |
+|      3 | John    |
+|      4 | Sara    |
+|      5 | Rohan   |
+|      6 | Rohini  |
+|      1 | Math    |
+|      2 | Science |
+|      3 | Math    |
+|      4 | English |
++--------+---------+
+10 rows in set (0.00 sec)
+----------------------------------------------------------------------------------------------
+
+Example: UNION with ORDER BY
+---------------------
+ORDER BY must be used only at the end(last query).
+--------------------------------------------------------------------
+mysql> select name as info from employee
+    -> UNION
+    -> select subject as info from marks
+    -> order by info;
++---------+
+| info    |
++---------+
+| English |
+| John    |
+| Math    |
+| Priya   |
+| Rohan   |
+| Rohini  |
+| Rohit   |
+| Sara    |
+| Science |
++---------+
+9 rows in set (0.00 sec)
+
+------------------------------------------------------------------------------------------
+✅ When to use UNION?
+
+Use UNION When you want to unique results.
+
+Example:
+* Unique employee list
+* Unique city list
+* Unique subject list
+-----------------------------------------------------------------
+
+✅ When to use UNION ALL?
+------------
+Use UNION ALL When you Want:
+ * duplicates allowed
+ * better performance
+ * counting/analytics
+-------------------------------------------------------------------------------------------
+✅ Summary
+
+|Keyword	| Meaning	|
+-------------------------------------
+|UNION		| Combines result and removes duplicates.
+------------------------------------------------------------
+|UNION ALL	| Combines result and keeps duplicates
+-------------------------------------------------------------
+|Output Columns	| Same number and compatible type required
+-----------------------------------------------------------------
+|ORDER BY	| Must be written only at the end.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+>> IF & CASE CLAUSE In MySQL
+------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
