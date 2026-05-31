@@ -2171,7 +2171,1179 @@ Use UNION ALL When you Want:
 |ORDER BY	| Must be written only at the end.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 >> IF & CASE CLAUSE In MySQL
+--------------------------------------------------------------------------------------------------------
+
+IF() and CASE() are used in MySQL to implement conditions logic in SQL Queries..
+---------------------------------------------------------------------------------------
+
+Logical Operator:
+	>> Basic Gates: [AND, OR, NOT]
+	>> Universal Gates: [NAND, NOR]
+	>> Exclusive OR: XOR
+	>> Exclusive NOR: XNOR
+
+---------------------------------------------------------------------------------------------
+
+
+syntax:
+
+if condition:
+	............
+else:
+	...............
+
+-------------------------------------------------------
+
+if condition1:
+	.............
+elif condition2:
+	..................
+else:
+	......................
+
+
+..........................................................
+
+1. IF() function sin MySQL
+
+IF(condition, value_if_true,value_if_false)
+
+
+------------------------------------------------------------------------------------------
+
+mysql> select mark_id, emp_id, subject, marks,
+    -> if (marks>=80,"PASS","Fail")as REsult from marks;
++---------+--------+---------+-------+--------+
+| mark_id | emp_id | subject | marks | REsult |
++---------+--------+---------+-------+--------+
+|     101 |      1 | Math    |    90 | PASS   |
+|     102 |      2 | Science |    85 | PASS   |
+|     103 |      3 | Math    |    75 | Fail   |
+|     104 |      4 | English |    65 | Fail   |
++---------+--------+---------+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select *,
+    -> if (marks>=80,"PASS","Fail")as REsult from marks;
++---------+--------+---------+-------+--------+
+| mark_id | emp_id | subject | marks | REsult |
++---------+--------+---------+-------+--------+
+|     101 |      1 | Math    |    90 | PASS   |
+|     102 |      2 | Science |    85 | PASS   |
+|     103 |      3 | Math    |    75 | Fail   |
+|     104 |      4 | English |    65 | Fail   |
++---------+--------+---------+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_newdb |
++-----------------+
+| citydata        |
+| employee        |
+| marks           |
+| studentdata     |
+| studentdata2    |
+| students        |
++-----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from students;
++------+-----------+------+
+| id   | name      | age  |
++------+-----------+------+
+|    1 | Ajay      |   25 |
+|    2 | Siddharth |   26 |
+|    3 | Prajakta  |   27 |
+|    4 | Aditya    |   28 |
+|    5 | NULL      |   45 |
++------+-----------+------+
+5 rows in set (0.03 sec)
+
+mysql> select * from studentdata;
++----+-----------------+-----+--------+------------+-----------+
+| ID | NAME            | AGE | GENDER | PHONE      | CITY      |
++----+-----------------+-----+--------+------------+-----------+
+|  1 | Aditya          |  30 | Male   | 123456789  | Pune      |
+|  2 | Prajakta        |  18 | Female | 0123456789 | Germany   |
+|  3 | Ajay            |  18 | Male   | 0123654987 | Chennai   |
+|  4 | SIDDHARTH SARAF |  35 | Male   | 0123654782 | Chennai   |
+|  5 | Sonam Gupta     |  18 | Female | 123045678  | Chennai   |
+|  6 | Rohan           |  50 | Male   | 112345678  | Chennai   |
+|  7 | Preety          |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar           |  65 | Male   | 123345678  | Banaras   |
+|  9 | Binary          |  22 | male   | 123445678  | Meerat    |
+| 10 | Rohini          |  26 | Female | 1234456789 | Dwarka    |
+| 11 | Madhuri         |  45 | Female | 123456678  | AGRA      |
++----+-----------------+-----+--------+------------+-----------+
+11 rows in set (0.01 sec)
+
+mysql> select name,age,gender,phone,city,
+    -> if (city="Pune","Local person","Outside") as Local_Type from studentdata;
++-----------------+-----+--------+------------+-----------+--------------+
+| name            | age | gender | phone      | city      | Local_Type   |
++-----------------+-----+--------+------------+-----------+--------------+
+| Aditya          |  30 | Male   | 123456789  | Pune      | Local person |
+| Prajakta        |  18 | Female | 0123456789 | Germany   | Outside      |
+| Ajay            |  18 | Male   | 0123654987 | Chennai   | Outside      |
+| SIDDHARTH SARAF |  35 | Male   | 0123654782 | Chennai   | Outside      |
+| Sonam Gupta     |  18 | Female | 123045678  | Chennai   | Outside      |
+| Rohan           |  50 | Male   | 112345678  | Chennai   | Outside      |
+| Preety          |  55 | Female | 122345678  | Varanashi | Outside      |
+| Sagar           |  65 | Male   | 123345678  | Banaras   | Outside      |
+| Binary          |  22 | male   | 123445678  | Meerat    | Outside      |
+| Rohini          |  26 | Female | 1234456789 | Dwarka    | Outside      |
+| Madhuri         |  45 | Female | 123456678  | AGRA      | Outside      |
++-----------------+-----+--------+------------+-----------+--------------+
+11 rows in set (0.00 sec)
+
+mysql> describe studentdata;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| ID     | int         | NO   | PRI | NULL    | auto_increment |
+| NAME   | char(50)    | NO   |     | NULL    |                |
+| AGE    | int         | NO   |     | NULL    |                |
+| GENDER | char(10)    | NO   |     | NULL    |                |
+| PHONE  | char(13)    | YES  | UNI | NULL    |                |
+| CITY   | varchar(15) | NO   |     | AGRA    |                |
++--------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+---------------------------------------------------------------------------------------------------
+
+IF() Inside Aggregate Functions
+--------------------------------------------------------
+This is Vey Important in reporting
+-----------------------------------------------------------------------------
+
+Count student who scoring above 80+ marks 
+-----------------------------------------------------------------------------------------------
+ select sum(if(age>=50)) as sum_of_age from studentdata;
+
+
+-------------------------------------------------------------------------------------------------
+
+Grade system using nested conditions
+
+-----------------------------------------------------------------------
+mysql> select subject, marks, if(marks>=90, 'A', if(marks>=80,'B', 'C')) as Grade from marks;
++---------+-------+-------+
+| subject | marks | Grade |
++---------+-------+-------+
+| Math    |    90 | A     |
+| Science |    85 | B     |
+| Math    |    75 | C     |
+| English |    65 | C     |
++---------+-------+-------+
+4 rows in set (0.00 sec)
+
+-----------------------------------------------------------
+
+Problem with Nested IF()
+---------------------------------
+
+IF(Condition, true, 
+	IF(Condition, true, 
+	IF(Conditon, True, 
+	IF(Condition, True,"C"))));
+
+Becomes difficult to read and write syntax.
+-----------------------------------------------------------------------------------
+>> That's by CASE is Preferred.
+------------------------------------------------------------------
+
+2. CASE statement in MYSQL
+
+CASE is more powerful and readable than IF
+-----------------------------------------------------------------
+>>Types of CASE
+1. Simple CASE
+
+Compare one value against multiple possibilities.
+---------------------------------------------------------------------
+2. Searched CASE
+
+Used full condition
+------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+SIMPLE CASE SYNTAX:
+--------------------------------------------------
+CASE column
+	WHEN value1 THEN result1
+	WHEN value2 THEN result2
+	ELSE RESULT
+END;
+---------------------------------------------------------------------------------------------
+
+mysql> SELECT name, age,city,
+    -> CASE city
+    -> WHEN "PUNE" THEN "PN"
+    -> WHEN "Germany" THEN "GE"
+    -> WHEN "Chennai" THEN "CH"
+    -> WHEN "Varanashi" THEN "VA"
+    -> WHEN "Banaras" THEN "BA"
+    -> When "Meerat" THEN "ME"
+    -> WHEN "Dwarka" THEN "DW"
+    -> ELSE "OTHER"
+    -> END AS city_code
+    -> FROM studentdata;
++-----------------+-----+-----------+-----------+
+| name            | age | city      | city_code |
++-----------------+-----+-----------+-----------+
+| Aditya          |  30 | Pune      | PN        |
+| Prajakta        |  18 | Germany   | GE        |
+| Ajay            |  18 | Chennai   | CH        |
+| SIDDHARTH SARAF |  35 | Chennai   | CH        |
+| Sonam Gupta     |  18 | Chennai   | CH        |
+| Rohan           |  50 | Chennai   | CH        |
+| Preety          |  55 | Varanashi | VA        |
+| Sagar           |  65 | Banaras   | BA        |
+| Binary          |  22 | Meerat    | ME        |
+| Rohini          |  26 | Dwarka    | DW        |
+| Madhuri         |  45 | AGRA      | OTHER     |
++-----------------+-----+-----------+-----------+
+11 rows in set (0.00 sec)
+
+
+----------------------------------------------------------------------------------------------
+
+2. Searched CASE
+
+Most commonly used in real project..
+
+----------------------------------------------------------
+
+CASE 
+	WHEN condition1 THEN result1
+	WHEN condition2 THEN result2
+	ELSE RESULT
+	END AS COLUMN_NAME
+
+END
+-------------------------------------------------------------------------------------------------------
+
+mysql> SELECT SUBJECT,MARKS,
+    -> CASE
+    -> WHEN marks>=90 THEN "A"
+    -> WHEN marks>=80 THEN "B"
+    -> WHEN marks>=70 THEN "C"
+    -> ELSE "D"
+    -> END AS REMARKS
+    -> FROM marks;
++---------+-------+---------+
+| SUBJECT | MARKS | REMARKS |
++---------+-------+---------+
+| Math    |    90 | A       |
+| Science |    85 | B       |
+| Math    |    75 | C       |
+| English |    65 | D       |
++---------+-------+---------+
+4 rows in set (0.00 sec)
+---------------------------------------------------------------------------------------------------------
+
+CASE IN ORDER BY:
+-------------------------
+SORT CITY IN YOUR OWN ORDER
+--------------------------------------------------
+
+
+mysql> SELECT * FROM STUDENTDATA
+    -> ORDER BY
+    -> CASE CITY
+    -> WHEN "pune" THEN 1
+    -> when "Chennai" THEN 2
+    -> when "Meerat" THEN 3
+    -> when "Agra" THEN 4
+    -> else 5
+    -> end;
++----+-----------------+-----+--------+------------+-----------+
+| ID | NAME            | AGE | GENDER | PHONE      | CITY      |
++----+-----------------+-----+--------+------------+-----------+
+|  1 | Aditya          |  30 | Male   | 123456789  | Pune      |
+|  3 | Ajay            |  18 | Male   | 0123654987 | Chennai   |
+|  4 | SIDDHARTH SARAF |  35 | Male   | 0123654782 | Chennai   |
+|  5 | Sonam Gupta     |  18 | Female | 123045678  | Chennai   |
+|  6 | Rohan           |  50 | Male   | 112345678  | Chennai   |
+|  9 | Binary          |  22 | male   | 123445678  | Meerat    |
+| 11 | Madhuri         |  45 | Female | 123456678  | AGRA      |
+|  2 | Prajakta        |  18 | Female | 0123456789 | Germany   |
+|  7 | Preety          |  55 | Female | 122345678  | Varanashi |
+|  8 | Sagar           |  65 | Male   | 123345678  | Banaras   |
+| 10 | Rohini          |  26 | Female | 1234456789 | Dwarka    |
++----+-----------------+-----+--------+------------+-----------+
+11 rows in set (0.00 sec)
+
+
+-------------------------------------------------------------------------------------------------
+
+CASE in GROUP By Report
+----------------------------------------
+
+Marks Distrubution
+---------------------
+marks>80   "Above 80"
+
+"Below 80"
+---------------------------------------------------------
+
+mysql> SELECT
+    -> CASE
+    -> WHEN marks >= 80 THEN "Above 80"
+    -> ELSE "Below 80"
+    -> END as category,
+    -> COUNT(*) AS TOTAL_STUDENT
+    -> FROM MARKS
+    -> GROUP BY category;
++----------+---------------+
+| category | TOTAL_STUDENT |
++----------+---------------+
+| Above 80 |             2 |
+| Below 80 |             2 |
++----------+---------------+
+2 rows in set (0.00 sec)
+---------------------------------------------------------------------------------------------
+
+ACID
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------
+
+IF vs CASE
+----------------
+
+Feature 	IF		Case
+---------------------------------------------------------
+Conditions	Simple		Multiple
+--------------
+Readability	Lower		Higher
+-------------------------
+SQL Standard 	No 		Yes
+--------------------
+Nested Logic	Difficult	Easy
+-------------------
+Reporting Que	Limited		Excellent
+-------------------
+Industry	Less 		Very High
+--------------------------------------------------------------------------------
+
+Summary
+--------------------
+
+Function 			Prupose
+-----------------------------------------
+IF(condition,ture,false)	Simple condition logic
+----------------------------
+CASE WHEN.... THEN....END	Multiple Condition logic
+------------------------------
+CASE Order BY			Custom Sorting
+------------------------------
+CASE Group BY			Reporting Categories
+---------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+MYSQL Aggregate Functions
+------------------------
+
+What are aggregate functions in MySQL?
+---------------------
+Aggregate function perform calculation on multiple rows and return a single result.
+--------------------------------------------------------------
+mysql> select * from marks;
++---------+--------+---------+-------+
+| mark_id | emp_id | subject | marks |
++---------+--------+---------+-------+
+|     101 |      1 | Math    |    90 |
+|     102 |      2 | Science |    85 |
+|     103 |      3 | Math    |    75 |
+|     104 |      4 | English |    65 |
++---------+--------+---------+-------+
+4 rows in set (0.00 sec)
+
+
+Aggregate function:
+>> Total marks
+>> Average marks
+>> Highest marks
+>> lowest marks
+>> Number of students 
+
+
+----------------------------------------------------------
+
+
+List of Important Aggregate functions
 ------------------------------------------------
+
+Functions		Purpose
+-----------------------------------------
+COUNT()			Count rows
+--------------
+SUM()			Total values
+----------------------
+AVG()			Average values()
+-------------------
+MAX()			Higest value
+-------------------------
+MIN() 			lowest value
+--------------------------
+GROUP_CONCAT()		Combine values into one string
+--------------------------------
+STDDEV()		Standard deviation
+-------------------------------------
+VARIANCE()		Variance
+------------------------------------------------------------------------------
+
+1.COUNT() ---> rows
+--------------------------------------------
+mysql> SELECT COUNT(*) AS Total_Records from marks;
++---------------+
+| Total_Records |
++---------------+
+|             4 |
++---------------+
+1 row in set (0.00 sec)
+---------------------------------------------------------------
+mysql> SELECT COUNT(subject) as total_subjects from marks;
++----------------+
+| total_subjects |
++----------------+
+|              4 |
++----------------+
+1 row in set (0.01 sec)
+----------------------------------------------------------
+
+
+2. SUM()
+
+-------------------------------
+mysql> SELECT mark_id, SUM(marks) as total_marks from marks GROUP BY mark_id;
++---------+-------------+
+| mark_id | total_marks |
++---------+-------------+
+|     101 |          90 |
+|     102 |          85 |
+|     103 |          75 |
+|     104 |          65 |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT SUM(marks) from marks;
++------------+
+| SUM(marks) |
++------------+
+|        315 |
++------------+
+1 row in set (0.00 sec)
+
+
+---------------------------------------------------
+
+
+3. AVG()
+
+
+mysql> SELECT AVG(marks) as avg_marks from marks;
++-----------+
+| avg_marks |
++-----------+
+|   78.7500 |
++-----------+
+---------------------------------------------------------------------------------------------
+
+
+4. MAX()
+
+------------------------------
+mysql> SELECT MAX(marks) as highest_value from marks;
++---------------+
+| highest_value |
++---------------+
+|            90 |
++---------------+
+1 row in set (0.00 sec)
+
+-----------------------------------------------------------
+
+5. MIN()
+
+mysql> SELECT MIN(marks) as highest_value from marks;
++---------------+
+| highest_value |
++---------------+
+|            65 |
++---------------+
+1 row in set (0.00 sec)
+------------------------------------------------------------------------------------------------------
+
+
+6. GROUP_CONCAT()
+
+combines multipe row values into single string.
+
+
+--------------------------------------------------------
+mysql> SELECT
+    ->     mark_id,
+    ->     GROUP_CONCAT(subject SEPARATOR '|') AS subjects
+    -> FROM marks
+    -> GROUP BY mark_id;
++---------+----------+
+| mark_id | subjects |
++---------+----------+
+|     101 | Math     |
+|     102 | Science  |
+|     103 | Math     |
+|     104 | English  |
++---------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select group_concat(subject Separator '|') as subjects from marks;
++---------------------------+
+| subjects                  |
++---------------------------+
+| Math|Science|Math|English |
++---------------------------+
+1 row in set (0.00 sec)
+----------------------------------------------------------------------------------------
+
+
+STDDEV()
+----------------
+
+Measure how much value vary from the averate 
+
+0 ---- 1
+----------------------------------------
+
+
+
+>> Analyst
+>> Data Science
+>> Statistics
+
+-------------------------------------------------------------------------
+
+
+mysql> select STDDEV(marks) as standard_deviation from marks;
++--------------------+
+| standard_deviation |
++--------------------+
+|  9.601432184835758 |
++--------------------+
+1 row in set (0.00 sec)
+
+
+----------------------------------------------------------------
+VARIANCE()
+
+--------------------------
+
+Show spread of data
+
+--------------------------------------
+mysql> select VARIANCE(marks) as variance_Value from marks;
++-------------------+
+| variance_Value    |
++-------------------+
+| 92.18749999999997 |
++-------------------+
+1 row in set (0.00 sec)
+
+
+-------------------------------------------------------------------------------------------------------------
+
+>> MySQL Arithmetic functions
+
+----------------------------------------------
+
+
+What is arithmetic function?
+--------------------------------
+>> Arithmetic functions aur used to perform mathematical calculations on numeric values in MYSQL
+--------------------------------------------------
+
+Commonly used in:
+
+>> Student Result systems
+>> banking Applications
+>> Payroll Systems
+>> E-Commerce Report
+>> Data Analytics
+>> Financial Calculations
+-----------------------------------------------------------------
+> Categories of Arithmetic Functions
+-------------------------------------------
+
+Function		Purpose
+------------------------------------
++			Addition
+----------------------------------------
+-			Subtraction
+----------------
+*			Multiplication
+----------------------
+/			Division
+-----------------------------------
+% or MOD()		Modulus
+---------------------------------
+ABS()			Absolute Value
+----------------------------------
+CEIL() / CEILING()	Round Up
+---------------------------------------
+FLOOR() 		Round Down
+-----------------------------------------
+ROUND()			Round Vaolue
+---------------------------
+TRUNCATE()		Remove decimal places
+-------------------------------
+POWER()/POW()		Exponent
+---------------------------------------------
+SQRT()			Square Root
+----------------------
+MOD()			Remainder
+----------------------------------------
+RAND()			Random Number
+-----------------------------------------
+SIGN()			Sign of numbers
+---------------------------------------------------------------------------------------------------
+
+
+mysql> select 50 + 25 as total;
++-------+
+| total |
++-------+
+|    75 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select *, marks + 30 as Practial_Theroy from marks;
++---------+--------+---------+-------+-----------------+
+| mark_id | emp_id | subject | marks | Practial_Theroy |
++---------+--------+---------+-------+-----------------+
+|     101 |      1 | Math    |    90 |             120 |
+|     102 |      2 | Science |    85 |             115 |
+|     103 |      3 | Math    |    75 |             105 |
+|     104 |      4 | English |    65 |              95 |
++---------+--------+---------+-------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select *, marks - 20 as reduced_marks from marks;
++---------+--------+---------+-------+---------------+
+| mark_id | emp_id | subject | marks | reduced_marks |
++---------+--------+---------+-------+---------------+
+|     101 |      1 | Math    |    90 |            70 |
+|     102 |      2 | Science |    85 |            65 |
+|     103 |      3 | Math    |    75 |            55 |
+|     104 |      4 | English |    65 |            45 |
++---------+--------+---------+-------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> select *, marks*2 as double_marks from marks;
++---------+--------+---------+-------+--------------+
+| mark_id | emp_id | subject | marks | double_marks |
++---------+--------+---------+-------+--------------+
+|     101 |      1 | Math    |    90 |          180 |
+|     102 |      2 | Science |    85 |          170 |
+|     103 |      3 | Math    |    75 |          150 |
+|     104 |      4 | English |    65 |          130 |
++---------+--------+---------+-------+--------------+
+4 rows in set (0.00 sec)
+
+
+mysql> select *, (marks/100)*100 as percentage from marks;
++---------+--------+---------+-------+------------+
+| mark_id | emp_id | subject | marks | percentage |
++---------+--------+---------+-------+------------+
+|     101 |      1 | Math    |    90 |    90.0000 |
+|     102 |      2 | Science |    85 |    85.0000 |
+|     103 |      3 | Math    |    75 |    75.0000 |
+|     104 |      4 | English |    65 |    65.0000 |
++---------+--------+---------+-------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select MOD(10,3) as remainder;
++-----------+
+| remainder |
++-----------+
+|         1 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select abs(-500);
++-----------+
+| abs(-500) |
++-----------+
+|       500 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select abs(500);
++----------+
+| abs(500) |
++----------+
+|      500 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select ceil(85.1);
++------------+
+| ceil(85.1) |
++------------+
+|         86 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select ceiling(89.0);
++---------------+
+| ceiling(89.0) |
++---------------+
+|            89 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select ceiling(89.1);
++---------------+
+| ceiling(89.1) |
++---------------+
+|            90 |
++---------------+
+1 row in set (0.00 sec)
+
+
+mysql> select floor(89.1);
++-------------+
+| floor(89.1) |
++-------------+
+|          89 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(89.9);
++-------------+
+| floor(89.9) |
++-------------+
+|          89 |
++-------------+
+1 row in set (0.00 sec)
+
+
+
+Round - .5 -- 89.1 ---> 89   89.9 ---> 90
+
+------------------------------------------------
+
+mysql> select round(89.9);
++-------------+
+| round(89.9) |
++-------------+
+|          90 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select round(89.1);
++-------------+
+| round(89.1) |
++-------------+
+|          89 |
++-------------+
+1 row in set (0.00 sec)
+
+
+mysql> select round(89.1);
++-------------+
+| round(89.1) |
++-------------+
+|          89 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select round(890.1);
++--------------+
+| round(890.1) |
++--------------+
+|          890 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select round(890.9);
++--------------+
+| round(890.9) |
++--------------+
+|          891 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select round(890.15);
++---------------+
+| round(890.15) |
++---------------+
+|           890 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select round(890.16);
++---------------+
+| round(890.16) |
++---------------+
+|           890 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select round(890.56);
++---------------+
+| round(890.56) |
++---------------+
+|           891 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select round(890.49);
++---------------+
+| round(890.49) |
++---------------+
+|           890 |
++---------------+
+1 row in set (0.00 sec)
+
+
+---------------------------------------------------------------------------
+
+
+CEIL vs FLOOR
+
+----------------------------
+
+FUNCTION 	85.1		85.9
+----------------------------------------
+CEIL()		86		86
+FLOOR()		85		85
+-----------------------------------------------------
+
+ROUND()
+
+
+mysql> SELECT ROUND(85.6789,2);
++------------------+
+| ROUND(85.6789,2) |
++------------------+
+|            85.68 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ROUND(85.6712,2);
++------------------+
+| ROUND(85.6712,2) |
++------------------+
+|            85.67 |
++------------------+
+1 row in set (0.00 sec)
+
+------------------------------------------------------------------------
+
+10. TRUNCATE()
+
+------------------------------------------
+
+Cuts Decimal palaces without rounding
+
+---------------------------------------------------------------
+
+mysql> select truncate(85.6789,2);
++---------------------+
+| truncate(85.6789,2) |
++---------------------+
+|               85.67 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select truncate(85.6712,2);
++---------------------+
+| truncate(85.6712,2) |
++---------------------+
+|               85.67 |
++---------------------+
+1 row in set (0.00 sec)
+
+
+----------------------------------------------------------------------------
+
+POW()/POWER()
+
+-----------------------
+SELECT POWER(base, exponent);
+---------------------------------------
+
+mysql> select power(2,3);
++------------+
+| power(2,3) |
++------------+
+|          8 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select power(20,3);
++-------------+
+| power(20,3) |
++-------------+
+|        8000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select pow(3,6);
++----------+
+| pow(3,6) |
++----------+
+|      729 |
++----------+
+1 row in set (0.00 sec)
+
+
+-------------------------------------------------------------------------------------------
+
+SQRT()
+
+Returns square root
+
+-----------------------
+
+mysql> select sqrt(81);
++----------+
+| sqrt(81) |
++----------+
+|        9 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sqrt(4);
++---------+
+| sqrt(4) |
++---------+
+|       2 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select sqrt(1);
++---------+
+| sqrt(1) |
++---------+
+|       1 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select sqrt(-20);
++-----------+
+| sqrt(-20) |
++-----------+
+|      NULL |
++-----------+
+1 row in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------
+
+13.RAND() --> Random Number
+
+
+---------------------------------------
+
+mysql> select floor(rand()*10);
++------------------+
+| floor(rand()*10) |
++------------------+
+|                4 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10);
++------------------+
+| floor(rand()*10) |
++------------------+
+|                4 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10);
++------------------+
+| floor(rand()*10) |
++------------------+
+|                6 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10);
++------------------+
+| floor(rand()*10) |
++------------------+
+|                9 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10);
++------------------+
+| floor(rand()*10) |
++------------------+
+|                6 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10);
++------------------+
+| floor(rand()*10) |
++------------------+
+|                7 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*100);
++-------------------+
+| floor(rand()*100) |
++-------------------+
+|                44 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*100);
++-------------------+
+| floor(rand()*100) |
++-------------------+
+|                12 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*100);
++-------------------+
+| floor(rand()*100) |
++-------------------+
+|                29 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*100);
++-------------------+
+| floor(rand()*100) |
++-------------------+
+|                 7 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*100);
++-------------------+
+| floor(rand()*100) |
++-------------------+
+|                51 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*1000);
++--------------------+
+| floor(rand()*1000) |
++--------------------+
+|                343 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*1000);
++--------------------+
+| floor(rand()*1000) |
++--------------------+
+|                169 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10000);
++---------------------+
+| floor(rand()*10000) |
++---------------------+
+|                8173 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10000);
++---------------------+
+| floor(rand()*10000) |
++---------------------+
+|                5790 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10000);
++---------------------+
+| floor(rand()*10000) |
++---------------------+
+|                4430 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10000);
++---------------------+
+| floor(rand()*10000) |
++---------------------+
+|                4781 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(rand()*10000);
++---------------------+
+| floor(rand()*10000) |
++---------------------+
+|                 616 |
++---------------------+
+1 row in set (0.00 sec)
+
+
+-------------------------------------------------------
+
+Sign()
+--------------------------
+Number		Result
+--------------------------------
+Positive	+1
+--------
+Negative	-1
+-------------
+Zero		0
+-------------------------------------------
+
+
+
+mysql> select sign(-100)
+    -> ;
++------------+
+| sign(-100) |
++------------+
+|         -1 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sign(89);
++----------+
+| sign(89) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sign(0);
++---------+
+| sign(0) |
++---------+
+|       0 |
++---------+
+1 row in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
