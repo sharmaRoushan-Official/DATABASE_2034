@@ -3332,6 +3332,1296 @@ mysql> select sign(0);
 
 -----------------------------------------------------------------------------------------------------------
 
+30. String Functions:
+----------------------------------------
+LIST OF STRING FUNCTIONS IN MYSQL
+------------------------------------
+1. UPPER()/UCASE()
+2. LOWER()/LCASE()
+3. LENGTH()
+4. CHAR_LENGTH()
+5. CONCAT()
+6. CONCAT_WS()
+7. LTRIM()
+8. RTRIM()
+9. POSITION()
+10. LOCATE()
+11. INSTR()
+12. SUBSTRING()/SUBSTR()
+13. MID()
+14. SUBSTRING_INDEX()
+15. LEFT()
+16. RIGHT()
+17. LPAD()
+18. RPAD()
+19. SPACE()
+20. REVERSE()
+21. REPEAT()
+22. REPLACE()
+23. STRCMP()
+24. FIELD()
+25. FIND_IN_SET()
+26. FORMAT()
+27. HEX(STR)
+-------------------------------------------------------------------------------------------------------------
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| demodatabase       |
+| elearningapp       |
+| hexadash_django_db |
+| information_schema |
+| mediplusapp        |
+| mysql              |
+| newdb              |
+| performance_schema |
+| practiceforeignkey |
+| school             |
+| sys                |
+| uday               |
++--------------------+
+12 rows in set (0.05 sec)
+
+mysql> USE NEWBD;
+ERROR 1049 (42000): Unknown database 'newbd'
+mysql> USE NEWDB;
+Database changed
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_newdb |
++-----------------+
+| citydata        |
+| employee        |
+| marks           |
+| studentdata     |
+| studentdata2    |
+| students        |
++-----------------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT * FROM STUDENTS;
++------+-----------+------+
+| id   | name      | age  |
++------+-----------+------+
+|    1 | Ajay      |   25 |
+|    2 | Siddharth |   26 |
+|    3 | Prajakta  |   27 |
+|    4 | Aditya    |   28 |
+|    5 | NULL      |   45 |
++------+-----------+------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ID,UPPER(NAME) FROM STUDENTS;
++------+-------------+
+| ID   | UPPER(NAME) |
++------+-------------+
+|    1 | AJAY        |
+|    2 | SIDDHARTH   |
+|    3 | PRAJAKTA    |
+|    4 | ADITYA      |
+|    5 | NULL        |
++------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ID,UCASE(NAME) FROM STUDENTS;
++------+-------------+
+| ID   | UCASE(NAME) |
++------+-------------+
+|    1 | AJAY        |
+|    2 | SIDDHARTH   |
+|    3 | PRAJAKTA    |
+|    4 | ADITYA      |
+|    5 | NULL        |
++------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ID,LOWER(NAME) FROM STUDENTS;
++------+-------------+
+| ID   | LOWER(NAME) |
++------+-------------+
+|    1 | ajay        |
+|    2 | siddharth   |
+|    3 | prajakta    |
+|    4 | aditya      |
+|    5 | NULL        |
++------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ID,LCASE(NAME) FROM STUDENTS;
++------+-------------+
+| ID   | LCASE(NAME) |
++------+-------------+
+|    1 | ajay        |
+|    2 | siddharth   |
+|    3 | prajakta    |
+|    4 | aditya      |
+|    5 | NULL        |
++------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ID,LENGTH(NAME) FROM STUDENTS;
++------+--------------+
+| ID   | LENGTH(NAME) |
++------+--------------+
+|    1 |            4 |
+|    2 |            9 |
+|    3 |            8 |
+|    4 |            6 |
+|    5 |         NULL |
++------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ID,CHAR_LENGTH(NAME) FROM STUDENTS;
++------+-------------------+
+| ID   | CHAR_LENGTH(NAME) |
++------+-------------------+
+|    1 |                 4 |
+|    2 |                 9 |
+|    3 |                 8 |
+|    4 |                 6 |
+|    5 |              NULL |
++------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ID, CONCAT(NAME,AGE) FROM STUDENTS;
++------+------------------+
+| ID   | CONCAT(NAME,AGE) |
++------+------------------+
+|    1 | Ajay25           |
+|    2 | Siddharth26      |
+|    3 | Prajakta27       |
+|    4 | Aditya28         |
+|    5 | NULL             |
++------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ("Yahoo","Google") as name;
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> SELECT concate("Yahoo","Google") as name;
+ERROR 1305 (42000): FUNCTION newdb.concate does not exist
+mysql> SELECT concat("Yahoo","Google") as name;
++-------------+
+| name        |
++-------------+
+| YahooGoogle |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select concat("Yahoo","Google","Aditya") as name;
++-------------------+
+| name              |
++-------------------+
+| YahooGoogleAditya |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat_ws("Yahoo","Google","Aditya") as name;
++-------------------+
+| name              |
++-------------------+
+| GoogleYahooAditya |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat_ws("Yahoo","Google","Aditya","ajay) as name;
+    "> ;
+    "> ;^C
+mysql> select concat_ws("Yahoo","Google","Aditya","ajay") as name;
++----------------------------+
+| name                       |
++----------------------------+
+| GoogleYahooAdityaYahooajay |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select ltrim("   Yahoo     ") as name;
++------------+
+| name       |
++------------+
+| Yahoo      |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select rtrim("   Yahoo     ") as name;
++----------+
+| name     |
++----------+
+|    Yahoo |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select position("Google" in "Hello Google");
++--------------------------------------+
+| position("Google" in "Hello Google") |
++--------------------------------------+
+|                                    7 |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select locate("hoo","Yahoo") as name;
++------+
+| name |
++------+
+|    3 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select substring("Google Yahoo",3);
++-----------------------------+
+| substring("Google Yahoo",3) |
++-----------------------------+
+| ogle Yahoo                  |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substring("Google Yahoo",5);
++-----------------------------+
+| substring("Google Yahoo",5) |
++-----------------------------+
+| le Yahoo                    |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select mid("Google Yahoo",5);
++-----------------------+
+| mid("Google Yahoo",5) |
++-----------------------+
+| le Yahoo              |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select mid("Google Yahoo",5,3);
++-------------------------+
+| mid("Google Yahoo",5,3) |
++-------------------------+
+| le                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select mid("Google Yahoo",5,5);
++-------------------------+
+| mid("Google Yahoo",5,5) |
++-------------------------+
+| le Ya                   |
++-------------------------+
+1 row in set (0.00 sec)
+
+ ysql> select substring_index("www.google.com",".",2);
++-----------------------------------------+
+| substring_index("www.google.com",".",2) |
++-----------------------------------------+
+| www.google                              |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select Left("Yahoo Google",3);
++------------------------+
+| Left("Yahoo Google",3) |
++------------------------+
+| Yah                    |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select right("Yahoo Google",3);
++-------------------------+
+| right("Yahoo Google",3) |
++-------------------------+
+| gle                     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD("Yahoo Google",20,"_");
++-----------------------------+
+| LPAD("Yahoo Google",20,"_") |
++-----------------------------+
+| ________Yahoo Google        |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD("Yahoo Google",3,"_");
++----------------------------+
+| LPAD("Yahoo Google",3,"_") |
++----------------------------+
+| Yah                        |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD("Yahoo Google",30,"_");
++--------------------------------+
+| LPAD("Yahoo Google",30,"_")    |
++--------------------------------+
+| __________________Yahoo Google |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT RPAD("Yahoo Google",30,"_");
++--------------------------------+
+| RPAD("Yahoo Google",30,"_")    |
++--------------------------------+
+| Yahoo Google__________________ |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT space(100) as name;
++------------------------------------------------------------------------------------------------------+
+| name                                                                                                 |
++------------------------------------------------------------------------------------------------------+
+|                                                                                                      |
++------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select replace("Yahoo Google", "Google","wow");
++-----------------------------------------+
+| replace("Yahoo Google", "Google","wow") |
++-----------------------------------------+
+| Yahoo wow                               |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select reverse("hello world");
++------------------------+
+| reverse("hello world") |
++------------------------+
+| dlrow olleh            |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select repeat("hello world");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select repeat("hello world",2);
++-------------------------+
+| repeat("hello world",2) |
++-------------------------+
+| hello worldhello world  |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select repeat("hello world ",2);
++--------------------------+
+| repeat("hello world ",2) |
++--------------------------+
+| hello world hello world  |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select strcmp("A","a");
++-----------------+
+| strcmp("A","a") |
++-----------------+
+|               0 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select strcmp("Yahoo Google","yahoo google");
++---------------------------------------+
+| strcmp("Yahoo Google","yahoo google") |
++---------------------------------------+
+|                                     0 |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select strcmp("apple","banana");
++--------------------------+
+| strcmp("apple","banana") |
++--------------------------+
+|                       -1 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select strcmp("banana","apple");
++--------------------------+
+| strcmp("banana","apple") |
++--------------------------+
+|                        1 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select strcmp("apple","apple");
++-------------------------+
+| strcmp("apple","apple") |
++-------------------------+
+|                       0 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select field("a","x","a","k");
++------------------------+
+| field("a","x","a","k") |
++------------------------+
+|                      2 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select field("a","x","k","a");
++------------------------+
+| field("a","x","k","a") |
++------------------------+
+|                      3 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select field(5,0,1,2,3,4,5);
++----------------------+
+| field(5,0,1,2,3,4,5) |
++----------------------+
+|                    6 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> select field(5,0,1,2,3,4);
++--------------------+
+| field(5,0,1,2,3,4) |
++--------------------+
+|                  0 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select find_in_set("ram","Ram,Mohan,Sohan")
+    -> ;
++--------------------------------------+
+| find_in_set("ram","Ram,Mohan,Sohan") |
++--------------------------------------+
+|                                    1 |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select find_in_set("ram","Sohan,Mohan,Ram")
+    -> ;
++--------------------------------------+
+| find_in_set("ram","Sohan,Mohan,Ram") |
++--------------------------------------+
+|                                    3 |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select format(255.3586,2);
++--------------------+
+| format(255.3586,2) |
++--------------------+
+| 255.36             |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select format(255.3545,2);
++--------------------+
+| format(255.3545,2) |
++--------------------+
+| 255.35             |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select format(255.3545,3);
++--------------------+
+| format(255.3545,3) |
++--------------------+
+| 255.355            |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select format(255.3543,3);
++--------------------+
+| format(255.3543,3) |
++--------------------+
+| 255.354            |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select format(255.3546,3);
++--------------------+
+| format(255.3546,3) |
++--------------------+
+| 255.355            |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select Hex("ajay");
++-------------+
+| Hex("ajay") |
++-------------+
+| 616A6179    |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select Hex("hello world");
++------------------------+
+| Hex("hello world")     |
++------------------------+
+| 68656C6C6F20776F726C64 |
++------------------------+
+1 row in set (0.00 sec)
+-----------------------------------------------------------------------------------------------------------
+
+>> MYSQL DATE FUNCTIONS
+-----------------------------------
+
+>> LIST OF DATE FUNCTIONS
+-------------------------------------
+1). CURDATE
+2). CURRENT_DATE
+3). SYSDATE
+4). NOW
+5). LAST_DAY
+6). DAY
+7). DAYNAME
+8). DAYOFMONTH
+9). DAYOFWEEK
+10). WEEK
+11). WEEKOFYEAR
+12). DAYOFYEAR
+13). WEEKDAY
+14). YEAR
+15). YEARWEEK
+16. DATE_ADD
+17). ADDDATE
+18). MAKEDATE
+19. DATE_SUB
+20). SUBDATE
+21). DATEDIFF
+22). TO_DAYS
+23). FROM_DAYS
+24). PERIOD_ADD
+
+------------------------
+The `PERIOD_ADD(P, N)` function in MySQL adds **N months** to period **P**, where P is in the format **YYMM** or **YYYYMM**.**Result: `16321711`**
+
+Here's how MySQL processes it:
+
+| Step | Detail |
+|---|---|
+| Input Period | `16321618` |
+| Extract Month | `16321618 % 100` = **18** |
+| Extract Year | `16321618 // 100` = **163216** |
+| Add 5 months | `18 + 5` = **23 months** = 1 year + 11 months |
+| New Year | `163216 + 1` = **163217** |
+| New Month | **11** (November) |
+| **Final Result** | **`16321711`** (YYYYMM format) |
+
+--------------------------------------------------------------
+
+> **Note:** `PERIOD_ADD` is not date-range validated — it works purely arithmetically on the YYYYMM format. The input month `18` is invalid in real calendar terms, but MySQL still processes it mathematically.
+-------------------------------------------------------------
+
+
+25). DATE_FORMAT
+26). SUBDATE
+27). STR_TO_DATE
+--------------------------------------------------------------------------------------------------------
+
+
+
+EXTRACT:
+-------------------
+
+1). MICROSECOND
+2). SECOND
+3). MINUTE
+4). HOUR
+5). DAY
+6). WEEK
+7). MONTH
+8). QUARTER
+9). YEAR
+10). SECOND_MICROSECOND
+11). MINUTE_MICROSECOND
+12). MINUTE_SECOND
+13). HOUR_SECOND
+14). DAY_MICROSECOND
+15). HOUR_MICROSECOND
+16). DAY_SECOND
+---------------------------------------------------------------
+
+
+mysql> SELECT CURRENT_DATE();
++----------------+
+| CURRENT_DATE() |
++----------------+
+| 2026-06-06     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURDATE();
++------------+
+| CURDATE()  |
++------------+
+| 2026-06-06 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2026-06-06 13:43:10 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2026-06-06 13:43:25 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2026-06-06 13:43:40 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2026-06-06 13:43:42 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LAST_DAY();
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'LAST_DAY'
+mysql> SELECT LAST_DAY(NOW());
++-----------------+
+| LAST_DAY(NOW()) |
++-----------------+
+| 2026-06-30      |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LAST_DAY("23-02-1947");
++------------------------+
+| LAST_DAY("23-02-1947") |
++------------------------+
+| NULL                   |
++------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SELECT LAST_DAY("23-02-1869");
++------------------------+
+| LAST_DAY("23-02-1869") |
++------------------------+
+| NULL                   |
++------------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SELECT LAST_DAY(NOW();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT LAST_DAY(NOW());
++-----------------+
+| LAST_DAY(NOW()) |
++-----------------+
+| 2026-06-30      |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LAST_DAY("1969-03-27");
++------------------------+
+| LAST_DAY("1969-03-27") |
++------------------------+
+| 1969-03-31             |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY(NOW());
++------------+
+| DAY(NOW()) |
++------------+
+|          6 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY("1947-02-02");
++-------------------+
+| DAY("1947-02-02") |
++-------------------+
+|                 2 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME("1947-02-02");
++-----------------------+
+| DAYNAME("1947-02-02") |
++-----------------------+
+| Sunday                |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME("1969-10-02");
++-----------------------+
+| DAYNAME("1969-10-02") |
++-----------------------+
+| Thursday              |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME(NOW());
++----------------+
+| DAYNAME(NOW()) |
++----------------+
+| Saturday       |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME("1869-10-02");
++-----------------------+
+| DAYNAME("1869-10-02") |
++-----------------------+
+| Saturday              |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH(NOW());
++-------------------+
+| DAYOFMONTH(NOW()) |
++-------------------+
+|                 6 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFWEEK(NOW());
++------------------+
+| DAYOFWEEK(NOW()) |
++------------------+
+|                7 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFWEEK(NOW());
++------------------+
+| DAYOFWEEK(NOW()) |
++------------------+
+|                7 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT WEEK(NOW());
++-------------+
+| WEEK(NOW()) |
++-------------+
+|          22 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT WEEKOFYEAR(NOW());
++-------------------+
+| WEEKOFYEAR(NOW()) |
++-------------------+
+|                23 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR(NOW());
++------------------+
+| DAYOFYEAR(NOW()) |
++------------------+
+|              157 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT WEEKDAY(NOW());
++----------------+
+| WEEKDAY(NOW()) |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEAR(NOW());
++-------------+
+| YEAR(NOW()) |
++-------------+
+|        2026 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK(NOW());
++-----------------+
+| YEARWEEK(NOW()) |
++-----------------+
+|          202622 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT YEARWEEK("1869-02-02",NOW());
++------------------------------+
+| YEARWEEK("1869-02-02",NOW()) |
++------------------------------+
+|                       186905 |
++------------------------------+
+1 row in set (0.00 sec)
+
+------------------
+List of Date Format
+-----------------------
+
+
+List of Time Format
+------------------------------------------------------------------------------------
+					|
+     -------------------------------------------------------------------------------
+	|			|		|		|
+	1.Hour			2.Minute	3.Second	4.Mircrosecond
+	%h - [01 to 12]		%i[00 to 59]	%s(00 to 59)	%F(000000-999999)
+	%H - [00-23]
+	%g - [1 to 12]
+	%G - [0 to 23]
+----------------
+Meridian:
+%P(PM)
+%P(AM)
+----------------------------------------------------------------------------------------
+		
+
+
+
+mysql> select adddate("2026-06-07",interval 10 day);
++---------------------------------------+
+| adddate("2026-06-07",interval 10 day) |
++---------------------------------------+
+| 2026-06-17                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select adddate("2026-06-07",interval 30 day);
++---------------------------------------+
+| adddate("2026-06-07",interval 30 day) |
++---------------------------------------+
+| 2026-07-07                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select adddate("2026-06-07",interval 1 week);
++---------------------------------------+
+| adddate("2026-06-07",interval 1 week) |
++---------------------------------------+
+| 2026-06-14                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select adddate("2026-06-07",interval 1 Quarter);
++------------------------------------------+
+| adddate("2026-06-07",interval 1 Quarter) |
++------------------------------------------+
+| 2026-09-07                               |
++------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select adddate("2026-06-07",interval 24 hours);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'hours)' at line 1
+mysql> select adddate("2026-06-07",interval 24 hour);
++----------------------------------------+
+| adddate("2026-06-07",interval 24 hour) |
++----------------------------------------+
+| 2026-06-08 00:00:00                    |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select adddate("2026-06-07",interval 3600 second);
++--------------------------------------------+
+| adddate("2026-06-07",interval 3600 second) |
++--------------------------------------------+
+| 2026-06-07 01:00:00                        |
++--------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select subdate(now(), interval 10 day);
++---------------------------------+
+| subdate(now(), interval 10 day) |
++---------------------------------+
+| 2026-05-28 12:56:21             |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select subdate(now(), interval 24 hour);
++----------------------------------+
+| subdate(now(), interval 24 hour) |
++----------------------------------+
+| 2026-06-06 12:56:51              |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select datediff(now()-"1869-10-02");
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'datediff'
+mysql> select datediff("2026-06-07"-"1869-10-02");
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'datediff'
+mysql> select datediff("2019-06-15",Now());
++------------------------------+
+| datediff("2019-06-15",Now()) |
++------------------------------+
+|                        -2549 |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select datediff("1869-10-02",Now());
++------------------------------+
+| datediff("1869-10-02",Now()) |
++------------------------------+
+|                       -57226 |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select datediff(Now(),"1869-10-02");
++------------------------------+
+| datediff(Now(),"1869-10-02") |
++------------------------------+
+|                        57226 |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select to_days("1869-10-02");
++-----------------------+
+| to_days("1869-10-02") |
++-----------------------+
+|                682913 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select to_days(Now());
++----------------+
+| to_days(Now()) |
++----------------+
+|         740139 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select from_days("682913");
++---------------------+
+| from_days("682913") |
++---------------------+
+| 1869-10-02          |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select from_days("780000");
++---------------------+
+| from_days("780000") |
++---------------------+
+| 2135-07-27          |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select from_days("740139");
++---------------------+
+| from_days("740139") |
++---------------------+
+| 2026-06-07          |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select period_add("740139");
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'period_add'
+mysql> select period_add("740139",5);
+ERROR 1210 (HY000): Incorrect arguments to period_add
+mysql> select period_add("16321618",5);
+ERROR 1210 (HY000): Incorrect arguments to period_add
+mysql> select period_add("685000",5);
+ERROR 1210 (HY000): Incorrect arguments to period_add
+mysql> select period_add("68500",5);
+ERROR 1210 (HY000): Incorrect arguments to period_add
+mysql> SELECT PERIOD_ADD(202402, 5);  -- ✅ Result: 202407 (2024 July)
++-----------------------+
+| PERIOD_ADD(202402, 5) |
++-----------------------+
+|                202407 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT PERIOD_ADD(9912, 5);    -- ✅ Result: 200005 (YYMM format)
++---------------------+
+| PERIOD_ADD(9912, 5) |
++---------------------+
+|              200005 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select period_add(202402,5)  --5month
+    -> ;
+ERROR 1054 (42S22): Unknown column '5month' in 'field list'
+mysql> select period_add(202402,5);  --5month
++----------------------+
+| period_add(202402,5) |
++----------------------+
+|               202407 |
++----------------------+
+1 row in set (0.00 sec)
+
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--5month' at line 1
+mysql> SELECT DATE_FORMAT("2019-06-15","%Y");
++--------------------------------+
+| DATE_FORMAT("2019-06-15","%Y") |
++--------------------------------+
+| 2019                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%Y");
++-------------------------+
+| DATE_FORMAT(Now(),"%Y") |
++-------------------------+
+| 2026                    |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%h");
++-------------------------+
+| DATE_FORMAT(Now(),"%h") |
++-------------------------+
+| 01                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%H");
++-------------------------+
+| DATE_FORMAT(Now(),"%H") |
++-------------------------+
+| 13                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%g");
++-------------------------+
+| DATE_FORMAT(Now(),"%g") |
++-------------------------+
+| g                       |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%G");
++-------------------------+
+| DATE_FORMAT(Now(),"%G") |
++-------------------------+
+| G                       |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%i");
++-------------------------+
+| DATE_FORMAT(Now(),"%i") |
++-------------------------+
+| 25                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%s");
++-------------------------+
+| DATE_FORMAT(Now(),"%s") |
++-------------------------+
+| 05                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%s");
++-------------------------+
+| DATE_FORMAT(Now(),"%s") |
++-------------------------+
+| 09                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%s");
++-------------------------+
+| DATE_FORMAT(Now(),"%s") |
++-------------------------+
+| 13                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%f");
++-------------------------+
+| DATE_FORMAT(Now(),"%f") |
++-------------------------+
+| 000000                  |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%f");
++-------------------------+
+| DATE_FORMAT(Now(),"%f") |
++-------------------------+
+| 000000                  |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%p");
++-------------------------+
+| DATE_FORMAT(Now(),"%p") |
++-------------------------+
+| PM                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%p");
++-------------------------+
+| DATE_FORMAT(Now(),"%p") |
++-------------------------+
+| PM                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%d");
++-------------------------+
+| DATE_FORMAT(Now(),"%d") |
++-------------------------+
+| 07                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%e");
++-------------------------+
+| DATE_FORMAT(Now(),"%e") |
++-------------------------+
+| 7                       |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%D");
++-------------------------+
+| DATE_FORMAT(Now(),"%D") |
++-------------------------+
+| 7th                     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%j");
++-------------------------+
+| DATE_FORMAT(Now(),"%j") |
++-------------------------+
+| 158                     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%M");
++-------------------------+
+| DATE_FORMAT(Now(),"%M") |
++-------------------------+
+| June                    |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%b");
++-------------------------+
+| DATE_FORMAT(Now(),"%b") |
++-------------------------+
+| Jun                     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%m");
++-------------------------+
+| DATE_FORMAT(Now(),"%m") |
++-------------------------+
+| 06                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%c");
++-------------------------+
+| DATE_FORMAT(Now(),"%c") |
++-------------------------+
+| 6                       |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%Y");
++-------------------------+
+| DATE_FORMAT(Now(),"%Y") |
++-------------------------+
+| 2026                    |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%y");
++-------------------------+
+| DATE_FORMAT(Now(),"%y") |
++-------------------------+
+| 26                      |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%a");
++-------------------------+
+| DATE_FORMAT(Now(),"%a") |
++-------------------------+
+| Sun                     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%W");
++-------------------------+
+| DATE_FORMAT(Now(),"%W") |
++-------------------------+
+| Sunday                  |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now(),"%w");
++-------------------------+
+| DATE_FORMAT(Now(),"%w") |
++-------------------------+
+| 0                       |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(Now());
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'DATE_FORMAT'
+mysql> SELECT DATE_FORMAT(Now());^C
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2026-06-07 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2026-06-07 13:29:40 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(Now(),"%d/%M/%Y  %h:%i:%s:   %P");
++-----------------------------------------------+
+| date_format(Now(),"%d/%M/%Y  %h:%i:%s:   %P") |
++-----------------------------------------------+
+| 07/June/2026  01:31:47:   P                   |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+>> LIST OF TIME FUNCTIONS IN MYSQL
+-----------------------------------------------
+1). CURTIME()
+2). CURRENT_TIMESTAMP()
+3). LOCALTIMESTAMP()
+4). TIMESTAMP()
+5). TIME()
+6). TIME_DIFF()
+7). HOUR()
+8). MINUTE()
+9). SECOND()
+10). MICROSECOND()
+11). ADDTIME()
+12). SUBTIME()
+13). MAKETIME()
+14). TIME_FORMAT()
+15). SEC_TO_TIME()
+16). TIME_TO_SECOND()
+------------------------------------------------------------------------------------
+
+
+
+
+
 
 
 
