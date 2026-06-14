@@ -4620,37 +4620,443 @@ mysql> select date_format(Now(),"%d/%M/%Y  %h:%i:%s:   %P");
 
 
 
+--------------------------------------------------------------------------------------------------
+
+MYSQL Alter Statement
+-------------------------------------------
+
+1. What is Alter?
+---------------------
+The Alter statement is Data Definition language(DDL) Command used to modify the structure of an existing database object such as:
+
+>> Tables
+>> Databases
+>> Views(limited)
+>> Stored Procedure(Some Properties)
+
+Syntax:
+ALTER TABLE table_name
+action;
+------------------------------
+
+2. Why Do We Use ALTER?
+
+During Software Development, requirements change Frequently:
+
+Example:
+
+>> Add a new columns for mobile number.
+>> Remove an unnecessary column.
+>> Change data type.
+>> Rename column type.
+>> Rename a table.
+>> Add constraints.
+>> Drop constraints.
+-----------------------------------------------------------------------------------------
+3. Create Table for Demonstration
+----------------------------------------
+
+CREATE TABLE employee(
+	emp_id INT PRIMARY KEY,
+	emp_name VARCHAR(50),
+	salary decimal(10,2)
+);
+-----------------------------------------------------------------------------------------------
+
+mysql> CREATE TABLE employee(
+    -> emp_id INT PRIMARY KEY,
+    -> emp_name VARCHAR(50),
+    -> salary DECIMAL(10,2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+---------------------------------------------------------------------------------------------------
+
+4. ADD Column
+
+Use to add new columns
+----------------------------
+syntax:
+
+ALTER TABLE table_name
+Add column_name datatype;
+-----------------------------------------------------------
+
+mysql> alter table employee
+    -> add email varchar(100);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+--------------------------------------------------------------------------------------------------
 
 
+Add Multiple Columns
+--------------------
+
+ALTER TABLE table_name
+add(
+	phone VARCHAR(15),
+	address VARCHAR(200)
+
+);
+
+--------------------------------------------------------------------------------------
+OR
+-------
+
+Alter Table table_name
+Add phone VARCHAR(15),
+ADD address VARCHAR(100);
+-------------------------------------------------------------------------------------------------
 
 
+mysql> Alter table employee
+    -> add()
+    -> ^C
+mysql> Alter table employee
+    -> add(
+    -> phone varchar(15),
+    -> address varchar(100)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe employee;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| emp_id   | int           | NO   | PRI | NULL    |       |
+| emp_name | varchar(50)   | YES  |     | NULL    |       |
+| salary   | decimal(10,2) | YES  |     | NULL    |       |
+| email    | varchar(100)  | YES  |     | NULL    |       |
+| phone    | varchar(15)   | YES  |     | NULL    |       |
+| address  | varchar(100)  | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------
 
 
+5. MODIFY Column
+--------------------
+
+>> Used to change datatype, size or attributes.
+
+ALTER TABLE TABLE_NAME
+MODIFY COLUMN_NAME new_datatype;
+-------------------------------------------------------------
+
+Increase Employee name size
+---------------------------------------------------
+
+mysql> ALTER TABLE employee
+    -> MODIFY emp_name varchar(100);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+----------------------------------------------------------------------------------------
+
+>> 6. CHANGE COLUMN
+
+USED TO RENAME A COLUMN AND OPTIONALLY MODIFY DATATYPE.
+----------------------------------------------------------------------------------
+
+ALTER TABLE TABLENAME
+CHANGE old_column_name new_column_name datatype;
+-----------------------------------------------------------------------------------------------
+
+mysql> ALTER TABLE employee
+    -> change emp_name employee_name varchar(50);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+------------------------------------------------------------------------------------------------------
+7. RENAME COLUMN
+
+MySQL 8 supports direct column renaming.
+
+syntax:
+
+ALTER TABLE table_name
+Rename column old_name to new_name;
 
 
+---------------------------------------------
+Check Version
+
+--------------
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p -e "SELECT VERSION();"
+Enter password: *********
++-----------+
+| VERSION() |
++-----------+
+| 8.0.43    |
++-----------+
+--------------------------------------------------------------------------------------
+mysql> alter table employee
+    -> rename column employee_name to emp_name;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+-----------------------------------------------------------------------------------------------------
 
 
+8. DROP Column
+-------------------------
+
+Used to remove a column permanently
+
+syntax:
+
+Alter table table_name
+Drop column column_name;
+---------------------------------------------------------------------------------------------------
+
+Warning:
+
+All data inside that column will be lost.
+
+---------------------------------------------------------------------------------------------------------
+mysql> describe employee;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| emp_id   | int           | NO   | PRI | NULL    |       |
+| emp_name | varchar(50)   | YES  |     | NULL    |       |
+| salary   | decimal(10,2) | YES  |     | NULL    |       |
+| email    | varchar(100)  | YES  |     | NULL    |       |
+| phone    | varchar(15)   | YES  |     | NULL    |       |
+| address  | varchar(100)  | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> alter table employee
+    -> drop column email;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe employee;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| emp_id   | int           | NO   | PRI | NULL    |       |
+| emp_name | varchar(50)   | YES  |     | NULL    |       |
+| salary   | decimal(10,2) | YES  |     | NULL    |       |
+| phone    | varchar(15)   | YES  |     | NULL    |       |
+| address  | varchar(100)  | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+------------------------------------------------------------------------------------------------------
+
+9.Rename Table
+-------------------
+
+ALTER TABLE old_table_name
+Rename to new_table_name;
+------------------------------------------------------------------------------------------------
+
+mysql> show tables;
++-----------------+
+| Tables_in_newdb |
++-----------------+
+| citydata        |
+| employee        |
+| studentdata     |
+| studentdata2    |
+| students        |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> rename to employeeData;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_newdb |
++-----------------+
+| citydata        |
+| employeedata    |
+| studentdata     |
+| studentdata2    |
+| students        |
++-----------------+
+5 rows in set (0.00 sec)
+--------------------------------------------------------------------------------------------------
+
+10. Add Primary Key
+-----------------------------------
+Example 
+
+create table student(
+id int,
+name varchar(50)
+);
+------------------------------------------------------------------------------------------------
+mysql> describe students;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| id    | int      | YES  |     | NULL    |       |
+| name  | char(25) | YES  |     | NULL    |       |
+| age   | int      | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table students
+    -> add primary key(id);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe students;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| id    | int      | NO   | PRI | NULL    |       |
+| name  | char(25) | YES  |     | NULL    |       |
+| age   | int      | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+---------------------------------------------------------------------------------------------------
 
 
+11. DROP PRIMARY KEY
+---------------------------------------
+ALTER TABLE student
+DROP PRIMARY KEY;
+-------------------------------------------------------
+mysql> ALTER TABLE STUDENTS
+    -> DROP PRIMARY KEY;
+Query OK, 5 rows affected (0.06 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE STUDENTS;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| id    | int      | NO   |     | NULL    |       |
+| name  | char(25) | YES  |     | NULL    |       |
+| age   | int      | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+--------------------------------------------------------------------------------------------
 
 
+12. ADD UNIQUE CONSTRAINTS
+------------------------------------------------------------
 
+ALTER TABLE TABLE_NAME
+ADD CONSTRAINTS CONTRAINTS_NAME
+UNIQUE(COLUMN_NAME);
+---------------------------------------------------------------------------------------------
 
+mysql> alter table employeedata
+    -> add constraint uk_email
+    -> unique(email);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+-------------------------------------------------------------------------------------------------
 
+mysql> describe employeedata;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| emp_id   | int           | NO   | PRI | NULL    |       |
+| emp_name | varchar(50)   | YES  |     | NULL    |       |
+| salary   | decimal(10,2) | YES  |     | NULL    |       |
+| phone    | varchar(15)   | YES  |     | NULL    |       |
+| address  | varchar(100)  | YES  |     | NULL    |       |
+| email    | varchar(100)  | YES  | UNI | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+---------------------------------------------------------------------------------------------
 
+13. Drop Unique Constrains;
 
+---------------------------------------
 
+alter table employee
+drop index uk_email;
+-------------------------------------------------------------
 
+mysql> alter table employeedata
+    -> drop index uk_email;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
+--------------------------------------------------------------------------------------------------------
 
+14. Add Foreign key
 
+-----------------------------------------
 
+Parent Table
+-----------------------------
 
+create table department(
+	dept_id int primary key,
+	dept_name varchar(50)
+);
+-------------------------------------------------------------------
+Child Table
 
+Create table employee(
+	emp_id int primary key,
+	dept_id int
+);
+--------------------------------------------------------------------------------------------------------
 
+Add foreign key
 
+-----------------------
 
+alter table employee
+add constraint fk_dept
+foreign key(dept_id)
+references department(dept_id);
 
+-----------------------
+
+mysql> alter table employee
+    -> add constraint fk_dept
+    -> foreign key(dept_id) references department(dept_id);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+-------------------------------------------------------------------------------------------------------
+
+15. DELETE FOREIGN KEY
+
+-------------------------------------
+
+ALTER TABLE EMPLOYEE
+DROP FOREIGN KEY fk_dept;
+-------------------------------------------------------------------------
+
+mysql> alter table employee
+    -> drop foreign key fk_dept;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from employee;
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table    | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| employee |          0 | PRIMARY  |            1 | emp_id      | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| employee |          1 | fk_dept  |            1 | dept_id     | A         |           0 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE employee DROP INDEX fk_dept;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW INDEX FROM employee;
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table    | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| employee |          0 | PRIMARY  |            1 | emp_id      | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+1 row in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
