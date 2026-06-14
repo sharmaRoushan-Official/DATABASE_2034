@@ -5022,7 +5022,7 @@ Query OK, 0 rows affected (0.07 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 -------------------------------------------------------------------------------------------------------
 
-15. DELETE FOREIGN KEY
+15. DROP FOREIGN KEY
 
 -------------------------------------
 
@@ -5057,6 +5057,788 @@ mysql> SHOW INDEX FROM employee;
 1 row in set (0.00 sec)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+16. ADD NOT NULL CONSTRAINT
+
+Example:
+--------------
+
+Syntax:
+
+ALTER TABLE employee
+Modify emp_name VARCHAR(100) NOT Null
+------------------------------------------------------------------------------
+Now NULL values are not allowed.
+
+------------------------------------------------------------------------------------------------
+mysql> UPDATE students SET name = 'Unknown' WHERE name IS NULL;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> describe students;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| id    | int      | NO   |     | NULL    |       |
+| name  | char(25) | YES  |     | NULL    |       |
+| age   | int      | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE students MODIFY name varchar(50) NOT NULL;
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> describe students;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   |     | NULL    |       |
+| name  | varchar(50) | NO   |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+17. Remove NOT NULL
+---------------------------
+
+Alter table employee 
+Modify emp_name varchar(100) null;
+------------------------------------------------------
+
+mysql> alter table students modify name varchar(50) null;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe students;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+-----------------------------------------------------------------------------------------------------
+
+
+18. Add Default value
+-----------------------
+
+Alter table employee
+alter salary set default 10000;
+-----------------------------------------------------------------------
+mysql> alter table students
+    -> modify age int default 18;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe students;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | 18      |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+---------------------------------------------------------------------------------------------
+
+19. Add AUTO_INCREMENET
+------------------------------
+Example:
+
+ALTER TABLE employe
+MODIFY emp_id  INT AUTO_INCREMENET;
+------------------------------------------------------------------------------------------
+
+mysql> describe students;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   |     | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | 18      |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> ALTER TABLE STUDENTS
+    -> ADD PRIMARY KEY(ID);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE STUDENTS;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(50) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | 18      |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENTS
+    -> MODIFY ID INT AUTO_INCREMENT;
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE STUDENTS;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| ID    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(50) | YES  |     | NULL    |                |
+| age   | int         | YES  |     | 18      |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+
+-------------------------------------------------------------------------------------------------
+
+20. VIEW TABLE STRUCTURE 
+
+BEFORE ANDTER ALTER OPERATION, VERIFY STRUCTURE
+
+----------------------------------------------------------------
+
+
+
+INITIAL TABLE- STUDENTS
+--------------------------
+ID
+NAME
+AG
+----------------------------------
+
+REQUIREMENT CHANGS
+---------------------
+1. ADD EMAIL
+2. ADD MOBILE NO
+3. CUSTOMER NAME LENGTH 50-100
+4. MAKE EMAIL UNIQUE
+5. ADD PRIMARY KEY.
+-------------------------------------------------------------------------------------------------
+
+mysql> DESCRIBE STUDENTS;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| ID        | int          | NO   | PRI | NULL    | auto_increment |
+| name      | varchar(50)  | YES  |     | NULL    |                |
+| age       | int          | YES  |     | 18      |                |
+| EMAIL     | varchar(100) | YES  |     | NULL    |                |
+| MOBILE_NO | varchar(15)  | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENTS
+    -> MODIFY NAME VARCHAR(100);
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE STUDENTS;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| ID        | int          | NO   | PRI | NULL    | auto_increment |
+| NAME      | varchar(100) | YES  |     | NULL    |                |
+| age       | int          | YES  |     | 18      |                |
+| EMAIL     | varchar(100) | YES  |     | NULL    |                |
+| MOBILE_NO | varchar(15)  | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENTS
+    -> ADD CONSTRAINT uk_email
+    -> UNIQUE(EMAIL);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE STUDENTS;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| ID        | int          | NO   | PRI | NULL    | auto_increment |
+| NAME      | varchar(100) | YES  |     | NULL    |                |
+| age       | int          | YES  |     | 18      |                |
+| EMAIL     | varchar(100) | YES  | UNI | NULL    |                |
+| MOBILE_NO | varchar(15)  | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q. Differentiate between MODIFY and CHANGE?
+-------------------------
+
+MODIFY					|		CHANGE				|
+---------------------------------------------------------------------------
+Changes datatype/attribute		| Rename column and can change datatype
+-----------------------------------------------------------------------------------
+Column name remains same		| column name can change
+----------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+1. WHAT IS VIEW?
+----------------------
+
+A View in MySQL is a Virtual Table created from the result of a SQL Query.
+
+>> It does not store data physically(except some special cases in other DBMS.)
+
+>> It stores only the SQL Query definition.
+
+>> Whenever the view is accessed, MYSQL executes the underlaying query and displays the latest data.
+
+>> A view is a virtual table based on one or more tables that provides a customized representation of data.
+
+--------------------------------------------------------------------------------------------------------
+
+>> Why Use Views?
+----------------------------
+
+Show only selected columns to user.
+------------------------------------------------------------------------------------------
+
+Example:
+
+>> Employee table contains salary.
+>> HR can see salary.
+>> Other employee should not.
+
+Create a view without salary column.
+-----------------------------------------------------------------------------
+
+Simplicity:
+
+Complex queries can be hidden behind a simple view.
+
+-------------------------------------------------------------------------
+
+Data Abstraction
+
+Users access data without knowing table structure.
+---------------------------------------------------------------------------
+
+Reusability 
+----------------
+
+
+------------------------------------------------------------------
+mysql> insert into students(name,age,email,mobile_no)
+    -> values
+    -> ("Divya",25,"divya@gmail.com","123456789"),
+    -> ("Muskan",36,"muskan@gmail.com","012345678"),
+    -> ("Rohan",45,"rohan@gmail.com","112345678"),
+    -> ("Sohan",15,"sohan@gmail.com","122345678");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++----+-----------+------+------------------+-----------+
+| ID | NAME      | AGE  | EMAIL            | MOBILE_NO |
++----+-----------+------+------------------+-----------+
+|  1 | Ajay      |   25 | NULL             | NULL      |
+|  2 | Siddharth |   26 | NULL             | NULL      |
+|  3 | Prajakta  |   27 | NULL             | NULL      |
+|  4 | Aditya    |   28 | NULL             | NULL      |
+|  5 | Unknown   |   45 | NULL             | NULL      |
+|  6 | Divya     |   25 | divya@gmail.com  | 123456789 |
+|  7 | Muskan    |   36 | muskan@gmail.com | 012345678 |
+|  8 | Rohan     |   45 | rohan@gmail.com  | 112345678 |
+|  9 | Sohan     |   15 | sohan@gmail.com  | 122345678 |
++----+-----------+------+------------------+-----------+
+9 rows in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------------
+
+4. Creating a View
+-------------------------------------------------------------------
+
+
+Syntax:
+
+-------------
+CREATE VIEW view_name AS
+SELECT column1,column2,column3 FROM table_name;
+--------------------------------------------------------------------------------
+
+mysql> select * from students;
++----+-----------+------+------------------+-----------+
+| ID | NAME      | AGE  | EMAIL            | MOBILE_NO |
++----+-----------+------+------------------+-----------+
+|  1 | Ajay      |   25 | NULL             | NULL      |
+|  2 | Siddharth |   26 | NULL             | NULL      |
+|  3 | Prajakta  |   27 | NULL             | NULL      |
+|  4 | Aditya    |   28 | NULL             | NULL      |
+|  5 | Unknown   |   45 | NULL             | NULL      |
+|  6 | Divya     |   25 | divya@gmail.com  | 123456789 |
+|  7 | Muskan    |   36 | muskan@gmail.com | 012345678 |
+|  8 | Rohan     |   45 | rohan@gmail.com  | 112345678 |
+|  9 | Sohan     |   15 | sohan@gmail.com  | 122345678 |
++----+-----------+------+------------------+-----------+
+9 rows in set (0.00 sec)
+
+------------------------------------------------------------------------------------------------------------
+
+mysql> select * from studentView;
++----+-----------+------+
+| ID | NAME      | AGE  |
++----+-----------+------+
+|  1 | Ajay      |   25 |
+|  2 | Siddharth |   26 |
+|  3 | Prajakta  |   27 |
+|  4 | Aditya    |   28 |
+|  5 | Unknown   |   45 |
+|  6 | Divya     |   25 |
+|  7 | Muskan    |   36 |
+|  8 | Rohan     |   45 |
+|  9 | Sohan     |   15 |
++----+-----------+------+
+9 rows in set (0.00 sec)
+---------------------------------------------------------------------------------------------------------------------------------
+
+>>> Updating Data through a view
+>> views can something be updated
+--------------------------------------------------------------
+
+
+create view employee_basic as 
+select emp_id, emp_name from employee;
+--------------------------------------------------------------------------------------------------
+
+Update
+
+update employee_basic 
+set emp_name = "Robert"
+where emp_id = 101
+-----------------------------------------------
+
+
+mysql> update studentView
+    -> set name = "Ajay Bhosale"
+    -> where id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from studentview;
++----+--------------+------+
+| ID | NAME         | AGE  |
++----+--------------+------+
+|  1 | Ajay Bhosale |   25 |
+|  2 | Siddharth    |   26 |
+|  3 | Prajakta     |   27 |
+|  4 | Aditya       |   28 |
+|  5 | Unknown      |   45 |
+|  6 | Divya        |   25 |
+|  7 | Muskan       |   36 |
+|  8 | Rohan        |   45 |
+|  9 | Sohan        |   15 |
++----+--------------+------+
+9 rows in set (0.00 sec)
+
+mysql> select * from students;
++----+--------------+------+------------------+-----------+
+| ID | NAME         | AGE  | EMAIL            | MOBILE_NO |
++----+--------------+------+------------------+-----------+
+|  1 | Ajay Bhosale |   25 | NULL             | NULL      |
+|  2 | Siddharth    |   26 | NULL             | NULL      |
+|  3 | Prajakta     |   27 | NULL             | NULL      |
+|  4 | Aditya       |   28 | NULL             | NULL      |
+|  5 | Unknown      |   45 | NULL             | NULL      |
+|  6 | Divya        |   25 | divya@gmail.com  | 123456789 |
+|  7 | Muskan       |   36 | muskan@gmail.com | 012345678 |
+|  8 | Rohan        |   45 | rohan@gmail.com  | 112345678 |
+|  9 | Sohan        |   15 | sohan@gmail.com  | 122345678 |
++----+--------------+------+------------------+-----------+
+9 rows in set (0.00 sec)
+
+
+-------------------------------------------------------------------------------------------------------
+
+
+
+Inserting data thorough a view
+---------------------------------------------------
+
+mysql> select * from studentview;
++----+--------------+------+
+| ID | NAME         | AGE  |
++----+--------------+------+
+|  1 | Ajay Bhosale |   25 |
+|  2 | Siddharth    |   26 |
+|  3 | Prajakta     |   27 |
+|  4 | Aditya       |   28 |
+|  5 | Unknown      |   45 |
+|  6 | Divya        |   25 |
+|  7 | Muskan       |   36 |
+|  8 | Rohan        |   45 |
+|  9 | Sohan        |   15 |
+| 10 | Mohan        |   45 |
++----+--------------+------+
+10 rows in set (0.00 sec)
+
+mysql> select * from students;
++----+--------------+------+------------------+-----------+
+| ID | NAME         | AGE  | EMAIL            | MOBILE_NO |
++----+--------------+------+------------------+-----------+
+|  1 | Ajay Bhosale |   25 | NULL             | NULL      |
+|  2 | Siddharth    |   26 | NULL             | NULL      |
+|  3 | Prajakta     |   27 | NULL             | NULL      |
+|  4 | Aditya       |   28 | NULL             | NULL      |
+|  5 | Unknown      |   45 | NULL             | NULL      |
+|  6 | Divya        |   25 | divya@gmail.com  | 123456789 |
+|  7 | Muskan       |   36 | muskan@gmail.com | 012345678 |
+|  8 | Rohan        |   45 | rohan@gmail.com  | 112345678 |
+|  9 | Sohan        |   15 | sohan@gmail.com  | 122345678 |
+| 10 | Mohan        |   45 | NULL             | NULL      |
++----+--------------+------+------------------+-----------+
+10 rows in set (0.00 sec)
+
+
+--------------------------------------------------------------------------------------------------------------
+
+Deleting data through a view
+-------------------------------------
+
+delete from employee_basic
+where emp_id = 101;
+
+-----------------------------------------------------------------------------------------------
+
+
+mysql> delete from studentview
+    -> where id=10;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from studentview;
++----+--------------+------+
+| ID | NAME         | AGE  |
++----+--------------+------+
+|  1 | Ajay Bhosale |   25 |
+|  2 | Siddharth    |   26 |
+|  3 | Prajakta     |   27 |
+|  4 | Aditya       |   28 |
+|  5 | Unknown      |   45 |
+|  6 | Divya        |   25 |
+|  7 | Muskan       |   36 |
+|  8 | Rohan        |   45 |
+|  9 | Sohan        |   15 |
++----+--------------+------+
+9 rows in set (0.00 sec)
+
+mysql> select * from students;
++----+--------------+------+------------------+-----------+
+| ID | NAME         | AGE  | EMAIL            | MOBILE_NO |
++----+--------------+------+------------------+-----------+
+|  1 | Ajay Bhosale |   25 | NULL             | NULL      |
+|  2 | Siddharth    |   26 | NULL             | NULL      |
+|  3 | Prajakta     |   27 | NULL             | NULL      |
+|  4 | Aditya       |   28 | NULL             | NULL      |
+|  5 | Unknown      |   45 | NULL             | NULL      |
+|  6 | Divya        |   25 | divya@gmail.com  | 123456789 |
+|  7 | Muskan       |   36 | muskan@gmail.com | 012345678 |
+|  8 | Rohan        |   45 | rohan@gmail.com  | 112345678 |
+|  9 | Sohan        |   15 | sohan@gmail.com  | 122345678 |
++----+--------------+------+------------------+-----------+
+9 rows in set (0.00 sec
+
+-------------------------------------------------------------------------------------------------------------
+
+
+DIFFERENCIATE BETWEEN TABLE AND VIEW
+
+-----------------------------------------
+
+FEATURE			|TABLE		| VIEW
+------------------------------------------------------
+STORES DATA		| YES		| NO (VIRTUAL)
+-------------------------------------------------------
+PHYSICAL DATA		| YES		| NO
+--------------------------------------------------------
+CONTAINS RECORD		|YES		|QUERY RESULT
+----------------------------------------------------------
+CAN HAVE INDEXES	|YES		|NO
+-----------------------------------------------------------------
+SECURITY		|LIMITED	|BETTER
+----------------------------------------------------------------
+COMPEXITY		| HIGHER	| SIMPLIFIES QUERIES
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+1. WHAT IS AN INDEX?
+
+----------------------------------------------
+
+AN INDEX IN MYSQL IS A DATABASE OBJECT USED TO SPEED UP DATA RETRIEVAL OPERAIONS ON A TABLE.
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+THINK OF AN INDEX LIKE THE INDEX OF A BOOK
+
+
+>> WITHOUT AN INDEX, YOU READ EVERY PAGE TO FIND A TOPIC.
+
+>> WITH AN INDEX, YOU DIRECTLY JUMP TO THE REQUIRED PAGE.
+----------------------------------------------------------------------------------
+SIMILAR, MYSQL USES INDEX TO FIND ROWS QUICKLY WITHOUT SCANNING THE ENTIRE TABLE.
+
+--------------------------------------------------------------------------------------------------------------
+
+2. WHY DO WE NEED INDEXES?
+---------------------------------------
+SUPPOSE AN EMPLOYEE TABLE CONTAINS 10 MILLION RECORDS.
+
+-----------------------------------------------------------------
+
+
+WITHOUT INDEX:
+
+SELECT * FROM EMPLOYEE
+WHERE EMP_ID = 1001;
+---------------------------------------------------
+
+MAYSQL MAY SCALL ALL ROWS(FULL TABLE SCAN)
+
+----------------------------------------------------------------------
+
+
+WITH INDEX:
+
+MYSQL DIRECTLY LOCATES THE RECORD USING THE INDEX STRUCTURE.
+
+-------------------------------------------------------------------
+
+BENEFITS:
+
+>> FASTER SELECT QUERIES
+>> FASTER WHERE FILTERING
+>> FASTER JOIN OPERATIONS
+>> FASTER ORDER BY AND GROUP BY OPERATIONS
+-------------------------------------------------------------------
+
+3. HOW INDEX WORKS
+---------------------------------
+		 50
+	      /     \
+	     25     75 
+	    /  \   /  \
+	   10  30 60  90
+-----------------------------------------------------------------------------
+Search Complexity:
+-----------------
+
+Method 			Complexity
+---------------------------------------
+
+Full Table Scan		O(n)
+--------------------------------------------------------
+Index Search		O(log n)
+--------------------------------------------------------------------------
+
+4. Types of Indexed in MySQL
+---------------------------------
+1. Primary Index
+2. Unique Index
+3. Normal Index
+4. Composite Index
+5. Full-Type Index
+6. Spatial Index
+----------------------------------------------
+
+1. Primary index
+------------------------
+
+Create automatically when a primary is defined.
+-------------------------------------------------------
+
+create table employee(
+	emp_id INT Primary key,
+	emp_name Varchar(50)
+);
+--------------------------------------------------------------------------------------------------
+
+6. Unique Index
+Ensures Uniqueness
+------------------------------
+
+Create Unique index idx_email on employee(email);
+
+--------------------------------------------------------------------------
+
+
+7. NORMAL INDEX
+MOST COMMONLY USED INDEX.
+
+----------------------------------------------------------------------------------------
+
+
+CREATE INDEX INDEX_NAME ON TABLE_NAME(COLUMN_NAME)
+----------------------------------------------------------------------------
+
+
+mysql> show index from students;
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table    | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| students |          0 | PRIMARY  |            1 | ID          | A         |           9 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| students |          0 | uk_email |            1 | EMAIL       | A         |           5 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++----------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.01 sec)
+
+
+mysql> CREATE INDEX NAME_INDEX ON STUDENTS(NAME);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from students;
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table    | Non_unique | Key_name   | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| students |          0 | PRIMARY    |            1 | ID          | A         |           9 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| students |          0 | uk_email   |            1 | EMAIL       | A         |           5 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| students |          1 | NAME_INDEX |            1 | NAME        | A         |           9 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++----------+------------+------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+3 rows in set (0.00 sec)
+
+
+------------------------------------------------------------------------------------------------
+
+>>> COMPOSITE INDEX
+
+CREATED ON MULTIPLE COLUMNS
+----------------------------------------------------------------
+
+SYNTAX:
+------------------------
+CREATE INDEX IDX_DEPT_SALARY
+ON EMPLOYEE(DEPARTMENT, SALARY)
+----------------------------------------------------------------------------------------------------
+
+mysql> CREATE INDEX IDX_STUDENT_INDEX
+    -> ON STUDENTS(AGE,MOBILE_NO);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from students;
++----------+------------+-------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table    | Non_unique | Key_name          | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++----------+------------+-------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| students |          0 | PRIMARY           |            1 | ID          | A         |           9 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| students |          0 | uk_email          |            1 | EMAIL       | A         |           5 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| students |          1 | NAME_INDEX        |            1 | NAME        | A         |           9 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| students |          1 | IDX_STUDENT_INDEX |            1 | AGE         | A         |           7 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| students |          1 | IDX_STUDENT_INDEX |            2 | MOBILE_NO   | A         |           9 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++----------+------------+-------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+5 rows in set (0.01 sec)
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+FULL--TYPE INDEX 
+
+EXMAPLE
+-----------------------
+
+CREATE TABLE ARTICLE(
+	ID INT PRIMARY KEY,
+	CONTENT TEXT,
+	FULLTEXT(CONTENT)
+);
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+mysql> DESCRIBE ARTICLE;
++---------+------+------+-----+---------+-------+
+| Field   | Type | Null | Key | Default | Extra |
++---------+------+------+-----+---------+-------+
+| ID      | int  | NO   | PRI | NULL    |       |
+| CONTENT | text | YES  | MUL | NULL    |       |
++---------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SHOW INDEX FROM ARTICLE;
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table   | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| article |          0 | PRIMARY  |            1 | ID          | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| article |          1 | CONTENT  |            1 | CONTENT     | NULL      |           0 |     NULL |   NULL | YES  | FULLTEXT   |         |               | YES     | NULL       |
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.01 sec)
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+SPATIAL INDEX
+
+USED WITH GEOGRAPHIC/SPATIAL DATA.
+-------------------------------------------------------------------------------------------
+
+CREATE TABLE LOCATIONS(
+	ID INT PRIMARY KEY,
+	COORDINATES POINT,
+	SPATIAL INDEX(COORDINATES)
+);
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+14. DROPPING AN INDEX
+---------------------------------------------------------
+
+DROP INDEX INDEX_NAME
+ON TABLE_NAME;
+------------------------------------------------------------------------
+
+
+>> DISADVANTAGES
+----------------------------------------------
+>> EXTRA STORAGE
+INDEXES OCCUPY DISK SPACE
+
+SLOWER INDERTS
+--------
+ADDITION INDEX MAINTAINENCE REQUIRED
+
+
+SLOWER UPDATES
+INDEX ENTRIES NEED UPDATING.
+
+SLOWER DELETES
+------------------------
+INDEXES MUST BE REORGANIZED.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
