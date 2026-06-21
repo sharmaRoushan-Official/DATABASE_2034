@@ -1,0 +1,306 @@
+
+SQL TEST 21ST JUNE
+NAME - ADITYA PIMPALE
+
+Q1.  write a query to display first name with alias worker name
+Ans: -
+MySQL  localhost:33060+ ssl  test_1  SQL > SELECT FIRST_NAME AS WORKER_NAME FROM worker;
++-------------+
+| WORKER_NAME |
++-------------+
+| Monika      |
+| Niharika    |
+| Vishal      |
+| Amitabh     |
+| Vivek       |
+| Vipul       |
+| Satish      |
+| Geetika     |
++-------------+
+8 rows in set (0.0005 sec)
+
+2. WRITE A SQL QUERY TO DISPLAY FIRTS_NAME IN UPPER CASE FROM THE WORKER TABLE.
+Ans: -
+MySQL  localhost:33060+ ssl  test_1  SQL > SELECT UPPER(FIRST_NAME) AS UPPERCASE_FIRST_NAME FROM worker;
++----------------------+
+| UPPERCASE_FIRST_NAME |
++----------------------+
+| MONIKA               |
+| NIHARIKA             |
+| VISHAL               |
+| AMITABH              |
+| VIVEK                |
+| VIPUL                |
+| SATISH               |
+| GEETIKA              |
++----------------------+
+8 rows in set (0.0036 sec)
+
+3. WRITE SQL QUERY TO DISPLAY UNIQUE DEPARTMENT VALUES FROM THE WORKER TABLE.
+
+Ans: -
+
+MySQL  localhost:33060+ ssl  test_1  SQL > SELECT DISTINCT DEPARTMENT
+                                         -> FROM worker;
++------------+
+| DEPARTMENT |
++------------+
+| HR         |
+| Admin      |
+| Account    |
++------------+
+3 rows in set (0.0008 sec) 
+
+4. WRITE SQL QUERY TO DISPLAY THE FIRST 3 CHARS OF FIRST_NAME FROM THE WORKER TABLE.
+Ans: - 
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT SUBSTRING(FIRST_NAME, 1, 3) FROM worker;
++-----------------------------+
+| SUBSTRING(FIRST_NAME, 1, 3) |
++-----------------------------+
+| Mon                         |
+| Nih                         |
+| Vis                         |
+| Ami                         |
+| Viv                         |
+| Vip                         |
+| Sat                         |
+| Gee                         |
++-----------------------------+
+
+5. WRITE SQL QUERY TO FIND THE POSITION OF ALPHABET 'A' IN THE FIRST_NAME COLUMN.
+
+Ans: -
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT FIRST_NAME, LOCATE('A', FIRST_NAME) AS position FROM worker;
++------------+----------+
+| FIRST_NAME | position |
++------------+----------+
+| Monika     |        6 |
+| Niharika   |        4 |
+| Vishal     |        5 |
+| Amitabh    |        1 |
+| Vivek      |        0 |
+| Vipul      |        0 |
+| Satish     |        2 |
+| Geetika    |        7 |
++------------+----------+
+8 rows in set (0.0009 sec)
+
+6. WRITE SQL QUERY TO FETCH FIRST_NAME FROM  THE WORKER TABLE WITH NO WHITE SPACES ON THE RIGHT.
+Ans: - 
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT RTRIM(FIRST_NAME)
+                                         -> FROM worker;
++-------------------+
+| RTRIM(FIRST_NAME) |
++-------------------+
+| Monika            |
+| Niharika          |
+| Vishal            |
+| Amitabh           |
+| Vivek             |
+| Vipul             |
+| Satish            |
+| Geetika           |
++-------------------+
+8 rows in set (0.0006 sec)
+
+7. WRITE SQL QUERY TO LIST DEPARTMENT FROM THE WORKER TABLE WITH NO SPACES ON THE LEFT.
+Ans: - 
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT LTRIM(DEPARTMENT)
+                                         -> FROM worker;
++-------------------+
+| LTRIM(DEPARTMENT) |
++-------------------+
+| HR                |
+| Admin             |
+| HR                |
+| Admin             |
+| Admin             |
+| Account           |
+| Account           |
+| Admin             |
++-------------------+
+8 rows in set (0.0009 sec)
+
+8. WRITE SQL QUERY TO DISPLAY UNIQUE DEPARTMENT VALUES AND THEIR LENGTH FROM THE WORKER TABLE.
+Ans: - 
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT DISTINCT department, LENGTH(department) AS length_of_data_records FROM WORKER;
++------------+------------------------+
+| department | length_of_data_records |
++------------+------------------------+
+| HR         |                      2 |
+| Admin      |                      5 |
+| Account    |                      7 |
++------------+------------------------+
+3 rows in set (0.0009 sec)
+
+9. WRITE SQL QUERY TO REPLACE 'a' WITH "A" IN FIRST_NAME FROM THE WORKER TABLE.
+Ans:-
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT REPLACE(FIRST_NAME,'a','A') AS FIRST_NAME
+                                         -> FROM worker;
++------------+
+| FIRST_NAME |
++------------+
+| MonikA     |
+| NihArikA   |
+| VishAl     |
+| AmitAbh    |
+| Vivek      |
+| Vipul      |
+| SAtish     |
+| GeetikA    |
++------------+
+8 rows in set (0.0010 sec)
+
+10. WRITE SQL QUERY TO COMBINE FIRST_NAME AND LAST_NAME INTO COMPLETE_NAME.
+Ans: - 
+MySQL  localhost:33060+ ssl  test_1  SQL > SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS COMPLETE_NAME FROM WORKER;
++-----------------+
+| COMPLETE_NAME   |
++-----------------+
+| Monika Arora    |
+| Niharika Verma  |
+| Vishal Singhal  |
+| Amitabh Singh   |
+| Vivek Bhati     |
+| Vipul Diwan     |
+| Satish Kumar    |
+| Geetika Chauhan |
++-----------------+
+8 rows in set (0.0010 sec)
+
+11. WRITE SQL QUERY TO PRINT WORKER DETAILS ORDERED BY FIRST_NAME ASCENDING AND DEPARTMENT DESCENDING.
+Ans: - 
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT * FROM Worker ORDER BY FIRST_NAME ASC, DEPARTMENT DESC;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         4 | Amitabh    | Singh     | 500000 | 2021-02-20 09:00:00 | Admin      |
+|         8 | Geetika    | Chauhan   |  90000 | 2021-04-11 09:00:00 | Admin      |
+|         1 | Monika     | Arora     | 100000 | 2021-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2021-06-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2021-01-20 09:00:00 | Account    |
+|         6 | Vipul      | Diwan     | 200000 | 2021-06-11 09:00:00 | Account    |
+|         3 | Vishal     | Singhal   | 300000 | 2021-02-20 09:00:00 | HR         |
+|         5 | Vivek      | Bhati     | 500000 | 2021-06-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.0019 sec)
+
+12. WRITE SQL QUERY TO PRINT WORKER DETAILS ORDERED BY FIRST_NAME ASCENDING AND DEPARTMENT DESCENDING.
+Ans: -
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT * FROM Worker ORDER BY FIRST_NAME ASC, DEPARTMENT DESC;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         4 | Amitabh    | Singh     | 500000 | 2021-02-20 09:00:00 | Admin      |
+|         8 | Geetika    | Chauhan   |  90000 | 2021-04-11 09:00:00 | Admin      |
+|         1 | Monika     | Arora     | 100000 | 2021-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2021-06-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2021-01-20 09:00:00 | Account    |
+|         6 | Vipul      | Diwan     | 200000 | 2021-06-11 09:00:00 | Account    |
+|         3 | Vishal     | Singhal   | 300000 | 2021-02-20 09:00:00 | HR         |
+|         5 | Vivek      | Bhati     | 500000 | 2021-06-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.0019 sec)
+
+13. WRITE SQL QUERY TO PRINT WORKER DETAILS WITH FIRST NAMES 'Vipul' AND "Satish".
+Ans: -
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT * FROM Worker WHERE FIRST_NAME IN ('Vipul', 'Satish');
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         6 | Vipul      | Diwan     | 200000 | 2021-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2021-01-20 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+2 rows in set (0.0011 sec)
+
+14. WRITE SQL QUERY TO PRINT WORKER DETAILS EXCLUDING FIRST NAMES ("Vipul" AND "Satish").
+Ans: -
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT * FROM Worker WHERE FIRST_NAME NOT IN ('Vipul', 'Satish');
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2021-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2021-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2021-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2021-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2021-06-11 09:00:00 | Admin      |
+|         8 | Geetika    | Chauhan   |  90000 | 2021-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+6 rows in set (0.0009 sec)
+
+15. WRITE SQL QUERY TO PRINT WORKER DETAILS WITH DEPRATMENT NAME AS "ADMIN".
+Ans: -
+MySQL  localhost:33060+ ssl  test_1  SQL > SELECT * FROM Worker WHERE DEPARTMENT = 'Admin';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         2 | Niharika   | Verma     |  80000 | 2021-06-11 09:00:00 | Admin      |
+|         4 | Amitabh    | Singh     | 500000 | 2021-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2021-06-11 09:00:00 | Admin      |
+|         8 | Geetika    | Chauhan   |  90000 | 2021-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+4 rows in set (0.0008 sec)
+
+16. WRITE SQL QUERY TO PRINT WORKER DETAILS WHOSE FIRST_NAME CONTAINS "a".
+Ans: - 
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT * FROM worker  where FIRST_NAME LIKE '%a%';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2021-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2021-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2021-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2021-02-20 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2021-01-20 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2021-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+17. WRITE SQL QUERY TO LIST WORKER INFO WHOSE FIRST_NAME ENDS WITH "a"
+Ans: - 
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT * FROM worker WHERE FIRST_NAME LIKE '%a';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2021-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2021-06-11 09:00:00 | Admin      |
+|         8 | Geetika    | Chauhan   |  90000 | 2021-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+18. WRITE SQL QUERY TO FETCH WORKERS WHOSE FIRST_NAME ENDS WITH "h" AND Has 6 LETTERS.
+
+Ans: -
+ MySQL  localhost:33060+ ssl  test_1  SQL > SELECT * FROM worker WHERE FIRST_NAME LIKE '%h'
+                                         -> AND LENGTH(FIRST_NAME) = 6;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         7 | Satish     | Kumar     |  75000 | 2021-01-20 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+
+19. WRITE SQL QUERY TO SHOW WORKER INFO WHOSE SALARY IS BETWEEN 100000 & 500000.
+Ans: - 
+ySQL  localhost:33060+ ssl  test_1  SQL > SELECT * FROM worker where salary BETWEEN 100000 AND 500000;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2021-02-20 09:00:00 | HR         |
+|         3 | Vishal     | Singhal   | 300000 | 2021-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2021-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2021-06-11 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2021-06-11 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+
+20. WRITE SQL QUERY TO DISPLAY WORKERS WHO JOINED IN FEB 2021.
+
+
+21. WRITE SQL QUERY TO PRINT EMPLOYEE COUNT IN "Admin" DEPARTMENT.
+
+Ans: - 
+MySQL  localhost:33060+ ssl  test_1  SQL > SELECT COUNT(*)
+                                         -> FROM worker
+                                         -> WHERE DEPARTMENT = 'Admin';
++----------+
+| COUNT(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.0034 sec)
