@@ -1,0 +1,86 @@
+mysql> select * from bonus;
++---------------+--------------+---------------------+
+| WORKER_REF_ID | BONUS_AMOUNT | BONUS_DATE          |
++---------------+--------------+---------------------+
+|             1 |         5000 | 2023-02-20 00:00:00 |
+|             2 |         3000 | 2023-06-11 00:00:00 |
+|             3 |         4000 | 2023-02-20 00:00:00 |
+|             1 |         4500 | 2023-02-20 00:00:00 |
+|             2 |         3500 | 2023-06-11 00:00:00 |
++---------------+--------------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from title;
++---------------+---------------+---------------------+
+| WORKER_REF_ID | WORKER_TITLE  | AFFECTED_FROM       |
++---------------+---------------+---------------------+
+|             1 | Manager       | 2023-02-20 00:00:00 |
+|             2 | Executive     | 2023-06-11 00:00:00 |
+|             8 | Executive     | 2023-06-11 00:00:00 |
+|             5 | Manager       | 2023-06-11 00:00:00 |
+|             4 | Asst. Manager | 2023-06-11 00:00:00 |
+|             7 | Executive     | 2023-06-11 00:00:00 |
+|             6 | Lead          | 2023-06-11 00:00:00 |
+|             3 | Lead          | 2023-06-11 00:00:00 |
++---------------+---------------+---------------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from worker;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2021-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2021-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2021-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2021-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2021-06-11 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2021-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2021-01-20 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2021-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.00 sec)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1. WRITE A SQL QUERY TO DISPLAY FIRST_NAME WITH ALIAS WORKER_NAME.
+
+2. WRITE A SQL QUERY TO DISPLAY FIRTS_NAME IN UPPER CASE FROM THE WORKER TABLE.
+
+3. WRITE SQL QUERY TO DISPLAY UNIQUE DEPARTMENT VALUES FROM THE WORKER TABLE.
+
+4. WRITE SQL QUERY TO DISPLAY THE FIRST 3 CHARS OF FIRST_NAME FROM THE WORKER TABLE.
+
+5. WRITE SQL QUERY TO FIND THE POSITION OF ALPHABET 'A' IN THE FIRST_NAME COLUMN.
+
+6. WRITE SQL QUERY TO FETCH FIRST_NAME FROM  THE WORKER TABLE WITH NO WHITE SPACES ON THE RIGHT.
+
+7. WRITE SQL QUERY TO LIST DEPARTMENT FROM THE WORKER TABLE WITH NO SPACES ON THE LEFT.
+
+8. WRITE SQL QUERY TO DISPLAY UNIQUE DEPARTMENT VALUES AND THEIR LENGTH FROM THE WORKER TABLE.
+
+9. WRITE SQL QUERY TO REPLACE 'a' WITH "a" IN FIRST_NAME FROM THE WORKER TABLE.
+
+10. WRITE SQL QUERY TO COMBINE FIRST_NAME AND LAST_NAME INTO COMPLETE_NAME.
+
+11. WRITE SQL QUERY TO PRINT WORKER DETAILS ORDERED BY FIRST_NAME ASCENDING AND DEPARTMENT DESCENDING.
+
+12. WRITE SQL QUERY TO PRINT WORKER DETAILS ORDERED BY FIRST_NAME ASCENDING AND DEPARTMENT DESCENDING.
+
+13. WRITE SQL QUERY TO PRINT WORKER DETAILS WITH FIRST NAMES 'Vipul' AND "Satish".
+
+14. WRITE SQL QUERY TO PRINT WORKER DETAILS EXCLUDING FIRST NAMES ("Vipul" AND "Satish").
+
+15. WRITE SQL QUERY TO PRINT WORKER DETAILS WITH DEPRATMENT NAME AS "ADMIN".
+
+16. WRITE SQL QUERY TO PRINT WORKER DETAILS WHOSE FIRST_NAME CONTAINS "a".
+
+17. WRITE SQL QUERY TO LIST WORKER INFO WHOSE FIRST_NAME ENDS WITH "a"
+
+18. WRITE SQL QUERY TO FETCH WORKERS WHOSE FIRST_NAME ENDS WITH "h" AND Has 6 LETTERS.
+
+19. WRITE SQL QUERY TO SHOW WORKER INFO WHOSE SALARY IS BETWEEN 100000 & 500000.
+
+20. WRITE SQL QUERY TO DISPLAY WORKERS WHO JOINED IN FEB 2021.
+
